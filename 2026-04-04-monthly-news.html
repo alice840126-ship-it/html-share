@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ko" class="theme-dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>류웅수의 2026년 3월 구조적 변화의 흐름</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --transition: 0.3s ease;
+}
+.theme-light {
+  --bg: #f4f6fa;
+  --surface: #ffffff;
+  --surface-hover: #f0f2f8;
+  --border: #e2e8f0;
+  --text: #1a202c;
+  --text-secondary: #718096;
+  --accent: #4f46e5;
+  --accent-secondary: #7c3aed;
+  --positive: #10b981;
+  --negative: #ef4444;
+  --warning: #f59e0b;
+}
+.theme-dark {
+  --bg: #0d1117;
+  --surface: #161b22;
+  --surface-hover: #1c2333;
+  --border: #30363d;
+  --text: #e6edf3;
+  --text-secondary: #8b949e;
+  --accent: #7c6fcd;
+  --accent-secondary: #a78bfa;
+  --positive: #3fb950;
+  --negative: #f85149;
+  --warning: #d29922;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Noto Sans KR", "Inter", sans-serif;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+a.skip-link {
+  position: absolute; top: -999px; left: 0;
+  background: var(--accent); color: #fff; padding: 8px 16px;
+  border-radius: 0 0 8px 0; font-size: 13px; z-index: 9999;
+  transition: top 0.2s;
+}
+a.skip-link:focus { top: 0; }
+
+/* VIZ MENU */
+.viz-menu {
+  position: fixed; top: 16px; right: 16px; z-index: 1000;
+}
+.viz-menu-toggle {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 8px 14px; border-radius: 8px;
+  cursor: pointer; font-size: 14px;
+  font-family: inherit;
+  transition: background var(--transition);
+}
+.viz-menu-toggle:hover { background: var(--surface-hover); }
+.viz-menu-dropdown {
+  display: none;
+  position: absolute; top: calc(100% + 6px); right: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px; overflow: hidden;
+  min-width: 160px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+}
+.viz-menu-dropdown.open { display: block; }
+.viz-menu-dropdown button {
+  display: block; width: 100%;
+  background: none; border: none;
+  color: var(--text); padding: 10px 16px;
+  text-align: left; cursor: pointer;
+  font-family: inherit; font-size: 14px;
+  transition: background var(--transition);
+}
+.viz-menu-dropdown button:hover { background: var(--surface-hover); }
+
+/* HEADER */
+.hero {
+  background: linear-gradient(135deg, #1a0533 0%, #0d1b3e 50%, #0d2a1a 100%);
+  padding: 60px 24px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 30% 50%, rgba(124,111,205,0.15) 0%, transparent 60%),
+              radial-gradient(ellipse at 70% 50%, rgba(16,185,129,0.08) 0%, transparent 60%);
+}
+.hero-badge {
+  display: inline-block;
+  background: rgba(124,111,205,0.2);
+  border: 1px solid rgba(124,111,205,0.4);
+  color: #a78bfa;
+  padding: 4px 14px; border-radius: 20px;
+  font-size: 12px; font-weight: 500;
+  letter-spacing: 0.5px; margin-bottom: 20px;
+  position: relative;
+}
+.hero h1 {
+  font-size: clamp(22px, 5vw, 38px);
+  font-weight: 700;
+  color: #e6edf3;
+  line-height: 1.3;
+  position: relative;
+  margin-bottom: 12px;
+}
+.hero-sub {
+  color: #8b949e;
+  font-size: 14px;
+  position: relative;
+}
+.keyword-chips {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  justify-content: center; margin-top: 20px;
+  position: relative;
+}
+.chip {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #c9d1d9;
+  padding: 4px 12px; border-radius: 20px;
+  font-size: 12px; font-weight: 500;
+}
+
+/* INSIGHT QUOTE */
+.insight-quote {
+  background: linear-gradient(135deg, rgba(79,70,229,0.15), rgba(124,111,205,0.1));
+  border: 1px solid rgba(124,111,205,0.3);
+  border-left: 4px solid var(--accent);
+  margin: 0; padding: 28px 32px;
+  position: relative;
+}
+.insight-quote p {
+  font-size: clamp(14px, 2.5vw, 18px);
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.7;
+  text-align: center;
+}
+.insight-quote .emoji {
+  font-size: 32px; display: block;
+  text-align: center; margin-bottom: 12px;
+}
+
+/* MAIN */
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 16px 64px;
+}
+.section-title {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+.section-title::after {
+  content: ""; flex: 1; height: 1px;
+  background: var(--border);
+}
+
+/* POWER MAP */
+.power-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px; margin-bottom: 40px;
+}
+.power-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px; padding: 20px;
+  transition: background var(--transition), transform 0.2s;
+}
+.power-card:hover { background: var(--surface-hover); transform: translateY(-2px); }
+.power-icon { font-size: 28px; margin-bottom: 10px; }
+.power-label {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 1px; text-transform: uppercase;
+  color: var(--text-secondary); margin-bottom: 6px;
+}
+.power-value {
+  font-size: 15px; font-weight: 600;
+  color: var(--text); line-height: 1.4;
+}
+.power-bar-wrap {
+  margin-top: 10px;
+  background: var(--border); border-radius: 4px; height: 5px;
+}
+.power-bar {
+  height: 5px; border-radius: 4px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+  transition: width 1s ease;
+}
+
+/* THEME CARDS */
+.themes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px; margin-bottom: 40px;
+}
+.theme-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px; overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.theme-card:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+.theme-header {
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.theme-num {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.t1 .theme-num { color: #f85149; }
+.t2 .theme-num { color: #d29922; }
+.t3 .theme-num { color: #3fb950; }
+.theme-title {
+  font-size: 15px; font-weight: 700;
+  color: var(--text); line-height: 1.4;
+}
+.theme-body { padding: 16px 20px; }
+.layer {
+  margin-bottom: 12px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: var(--surface-hover);
+}
+.layer-label {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  margin-bottom: 5px; opacity: 0.7;
+}
+.l-surface .layer-label { color: #8b949e; }
+.l-target .layer-label { color: var(--warning); }
+.l-hidden .layer-label { color: var(--negative); }
+.layer-text {
+  font-size: 13px; color: var(--text);
+  line-height: 1.6;
+}
+
+/* TIMELINE */
+.timeline-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px; margin-bottom: 40px;
+}
+@media (max-width: 600px) {
+  .timeline-grid { grid-template-columns: 1fr; }
+}
+.timeline-col {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px; padding: 20px;
+}
+.tl-header {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 16px; padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.tl-badge {
+  padding: 3px 10px; border-radius: 20px;
+  font-size: 12px; font-weight: 600;
+}
+.tl-3m .tl-badge { background: rgba(245,158,11,0.2); color: #d29922; }
+.tl-1y .tl-badge { background: rgba(239,68,68,0.2); color: #f85149; }
+.tl-label { font-size: 14px; font-weight: 600; color: var(--text); }
+.tl-item {
+  display: flex; gap: 10px; margin-bottom: 12px;
+  align-items: flex-start;
+}
+.tl-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  margin-top: 6px; flex-shrink: 0;
+}
+.tl-3m .tl-dot { background: var(--warning); }
+.tl-1y .tl-dot { background: var(--negative); }
+.tl-text { font-size: 13px; color: var(--text); line-height: 1.6; }
+
+/* STRUCTURAL CHANGE */
+.struct-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px; margin-bottom: 40px;
+}
+.struct-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px; padding: 20px;
+}
+.struct-icon { font-size: 24px; margin-bottom: 10px; }
+.struct-title {
+  font-size: 13px; font-weight: 700;
+  color: var(--accent-secondary); margin-bottom: 8px;
+}
+.struct-desc {
+  font-size: 13px; color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* FOOTER */
+.viz-footer {
+  text-align: center;
+  padding: 24px 16px;
+  border-top: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+
+/* REVEAL ANIMATION */
+.reveal {
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">본문 바로가기</a>
+
+<div class="viz-menu" role="navigation" aria-label="도구 메뉴">
+  <button class="viz-menu-toggle" onclick="toggleMenu()" aria-expanded="false">⚙️ 메뉴</button>
+  <div class="viz-menu-dropdown" id="vizDropdown">
+    <button onclick="downloadImage()">📥 PNG 다운로드</button>
+    <button onclick="window.print()">🖨️ 인쇄</button>
+    <button onclick="toggleTheme()">🌓 테마 전환</button>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="hero-badge">월간 뉴스 주제 분석</div>
+  <h1>류웅수의 2026년 3월<br>구조적 변화의 흐름</h1>
+  <p class="hero-sub">분석일: 2026년 4월 1일 · 기반: 지난 30일 뉴스 399건</p>
+  <div class="keyword-chips">
+    <span class="chip">🔥 AI</span>
+    <span class="chip">⚔️ 이란</span>
+    <span class="chip">💾 반도체</span>
+    <span class="chip">💰 투자</span>
+    <span class="chip">🛢️ 유가</span>
+  </div>
+</header>
+
+<div class="insight-quote">
+  <span class="emoji">🔥</span>
+  <p>"총보다 무서운 자본과 기술의 패권 전쟁 속에서,<br>효율성(AI)과 생존(에너지/공급망)을 향한<br>거대한 비용 떠넘기기가 시작되었다."</p>
+</div>
+
+<main id="main-content">
+
+  <section class="reveal" style="margin-bottom:40px;">
+    <p class="section-title">패권 지도</p>
+    <div class="power-grid">
+      <div class="power-card">
+        <div class="power-icon">🏛️</div>
+        <div class="power-label">자본 패권</div>
+        <div class="power-value">연준 + 빅테크</div>
+        <div class="power-bar-wrap"><div class="power-bar" style="width:92%"></div></div>
+      </div>
+      <div class="power-card">
+        <div class="power-icon">⚡</div>
+        <div class="power-label">에너지 패권</div>
+        <div class="power-value">미국 정치·금융</div>
+        <div class="power-bar-wrap"><div class="power-bar" style="width:85%"></div></div>
+      </div>
+      <div class="power-card">
+        <div class="power-icon">🤖</div>
+        <div class="power-label">기술 패권</div>
+        <div class="power-value">구글·메타·xAI</div>
+        <div class="power-bar-wrap"><div class="power-bar" style="width:80%"></div></div>
+      </div>
+      <div class="power-card">
+        <div class="power-icon">🎯</div>
+        <div class="power-label">비용 전가 타겟</div>
+        <div class="power-value">한국 등 신흥국</div>
+        <div class="power-bar-wrap"><div class="power-bar" style="width:95%; background: linear-gradient(90deg,#f85149,#ff6b6b);"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal" style="margin-bottom:40px;">
+    <p class="section-title">3대 주제 분석 — 표면 → 진짜 타겟 → 숨겨진 의도</p>
+    <div class="themes-grid">
+
+      <article class="theme-card t1">
+        <div class="theme-header">
+          <div class="theme-num">Theme 01 · 지정학</div>
+          <div class="theme-title">미-이란 전쟁과<br>3高 뉴노멀<br>(고환율·고유가·고물가)</div>
+        </div>
+        <div class="theme-body">
+          <div class="layer l-surface">
+            <div class="layer-label">표면적 사건</div>
+            <div class="layer-text">브렌트유 100달러 돌파, 원·달러 1,500원 위협, 다우 조정장 진입</div>
+          </div>
+          <div class="layer l-target">
+            <div class="layer-label">진짜 타겟</div>
+            <div class="layer-text">에너지 의존·수출 주도 신흥국(한국)과 글로벌 공급망</div>
+          </div>
+          <div class="layer l-hidden">
+            <div class="layer-label">숨겨진 의도</div>
+            <div class="layer-text">미국 에너지 패권 강화 + 달러 패권 + 대중국 공급망 재편 가속화</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="theme-card t2">
+        <div class="theme-header">
+          <div class="theme-num">Theme 02 · 기술</div>
+          <div class="theme-title">AI 반도체 패권과<br>터보퀀트(TurboQuant) 쇼크</div>
+        </div>
+        <div class="theme-body">
+          <div class="layer l-surface">
+            <div class="layer-label">표면적 사건</div>
+            <div class="layer-text">엔비디아 GTC + 구글 터보퀀트 발표 → 한국 반도체 주가 급락</div>
+          </div>
+          <div class="layer l-target">
+            <div class="layer-label">진짜 타겟</div>
+            <div class="layer-text">엔비디아 하드웨어 독점 체제 + 막대한 HBM 비용 구조</div>
+          </div>
+          <div class="layer l-hidden">
+            <div class="layer-label">숨겨진 의도</div>
+            <div class="layer-text">빅테크가 AI 생태계 주도권을 하드웨어 → 소프트웨어/자체 아키텍처로 이전</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="theme-card t3">
+        <div class="theme-header">
+          <div class="theme-num">Theme 03 · 자본</div>
+          <div class="theme-title">방어적 자본 이동과<br>자산 양극화</div>
+        </div>
+        <div class="theme-body">
+          <div class="layer l-surface">
+            <div class="layer-label">표면적 사건</div>
+            <div class="layer-text">배당·원자재 ETF 급증, RIA 개설 폭증, 서울 신축 로또 줍줍 쏠림</div>
+          </div>
+          <div class="layer l-target">
+            <div class="layer-label">진짜 타겟</div>
+            <div class="layer-text">인플레+고금리 속 자산 하락을 맞는 중산·서민층 잉여 자본</div>
+          </div>
+          <div class="layer l-hidden">
+            <div class="layer-label">숨겨진 의도</div>
+            <div class="layer-text">WGBI 편입 앞두고 개인 자본을 제도권 펀드·국내 자산으로 묶어두는 시스템적 선택</div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="reveal" style="margin-bottom:40px;">
+    <p class="section-title">시간별 전망</p>
+    <div class="timeline-grid">
+      <div class="timeline-col tl-3m">
+        <div class="tl-header">
+          <span class="tl-badge">3개월 후</span>
+          <span class="tl-label">2026년 2분기</span>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-text">고유가·1,500원 환율이 실물 지표에 반영 → 제조·물류 기업 실적 악화</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-text">한은 금리 인하 지연 또는 인상 압박</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-text">반도체: HBM 단순 수요보다 비용 효율성(NPU·에이전트칩) 기업으로 재편</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-text">WGBI 편입 + RIA 자금 → AI·고배당 테마 쏠림 극대화</div>
+        </div>
+      </div>
+      <div class="timeline-col tl-1y">
+        <div class="tl-header">
+          <span class="tl-badge">1년 후</span>
+          <span class="tl-label">2027년 초</span>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-text">중동 리스크 장기화 → 글로벌 공급망 탈중동·대체 노선으로 완전 재편</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-text">저비용·고효율 AI 모델 대중화, 메모리 기업 풀 밸류체인 전환 강요</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-text">부동산: 서울 핵심지 신축만 살아남는 극단적 자산 프리미엄 시대</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-text">AI·핵심 자산 방어 계층 vs 그렇지 못한 계층 — 부의 격차 돌이킬 수 없는 수준으로 확대</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <p class="section-title">구조적 변화 요약</p>
+    <div class="struct-cards">
+      <div class="struct-card">
+        <div class="struct-icon">⚙️</div>
+        <div class="struct-title">효율성의 강제</div>
+        <div class="struct-desc">AI 시장이 무한 하드웨어 팽창 1막에서 소프트웨어 최적화 2막으로 전환. 비용을 낮추지 못하는 기업은 생존 불가.</div>
+      </div>
+      <div class="struct-card">
+        <div class="struct-icon">💸</div>
+        <div class="struct-title">비용의 전가</div>
+        <div class="struct-desc">중동 위기로 촉발된 고유가·공급망 마비를 고환율 1,500원이라는 형태로 신흥국이 고스란히 떠안는 구조.</div>
+      </div>
+      <div class="struct-card">
+        <div class="struct-icon">🎮</div>
+        <div class="struct-title">선택 강요의 딜레마</div>
+        <div class="struct-desc">국가는 물가 방어 vs 성장 방어, 개인은 초고변동성 기술주 vs 인플레 헷지 자산 사이 극단적 선택을 강요받음.</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="viz-footer">
+  분석일: 2026-04-01 · 기반: NotebookLM 월간 깊은 통찰 · 류웅수
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.js"></script>
+<script>
+function lsGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+function lsSet(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+
+function toggleMenu() {
+  var d = document.getElementById("vizDropdown");
+  var t = document.querySelector(".viz-menu-toggle");
+  var open = d.classList.toggle("open");
+  t.setAttribute("aria-expanded", open);
+}
+document.addEventListener("click", function(e){
+  if (!e.target.closest(".viz-menu")) {
+    document.getElementById("vizDropdown").classList.remove("open");
+    document.querySelector(".viz-menu-toggle").setAttribute("aria-expanded","false");
+  }
+});
+
+function toggleTheme() {
+  var html = document.documentElement;
+  if (html.classList.contains("theme-dark")) {
+    html.classList.replace("theme-dark","theme-light");
+    lsSet("theme","light");
+  } else {
+    html.classList.replace("theme-light","theme-dark");
+    lsSet("theme","dark");
+  }
+}
+
+(function(){
+  var t = lsGet("theme");
+  if (t) {
+    document.documentElement.classList.remove("theme-dark","theme-light");
+    document.documentElement.classList.add("theme-" + t);
+  }
+})();
+
+function downloadImage() {
+  if (typeof htmlToImage === "undefined") { alert("라이브러리 로드 중입니다."); return; }
+  htmlToImage.toPng(document.body).then(function(dataUrl){
+    var a = document.createElement("a");
+    a.download = "2026-03-월간뉴스분석.png";
+    a.href = dataUrl; a.click();
+  }).catch(function(){ alert("다운로드 실패"); });
+}
+
+// Reveal animation with fallback
+if ("IntersectionObserver" in window) {
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) { e.target.classList.add("visible"); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll(".reveal").forEach(function(el){ io.observe(el); });
+} else {
+  document.querySelectorAll(".reveal").forEach(function(el){ el.classList.add("visible"); });
+}
+window.addEventListener("load", function(){
+  setTimeout(function(){
+    document.querySelectorAll(".reveal").forEach(function(el){ el.classList.add("visible"); });
+  }, 400);
+});
+</script>
+</body>
+</html>
