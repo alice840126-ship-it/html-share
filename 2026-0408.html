@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 자동화 글쓰기, 실패했던 이유와 성공한 파이프라인</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', '맑은 고딕', sans-serif;
+    font-size: 16px;
+    color: #333333;
+    line-height: 1.9;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+    background: #ffffff;
+  }
+
+  /* H1 대제목 */
+  h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #0D1B2A;
+    margin-top: 48px;
+    margin-bottom: 20px;
+    padding-top: 16px;
+    border-top: 4px solid #0D1B2A;
+    line-height: 1.3;
+  }
+
+  /* H2 중제목 */
+  h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1A5276;
+    margin-top: 40px;
+    margin-bottom: 16px;
+    padding-left: 14px;
+    border-left: 5px solid #1A5276;
+    line-height: 1.4;
+  }
+
+  /* H3 소제목 */
+  h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #2874A6;
+    margin-top: 28px;
+    margin-bottom: 10px;
+    line-height: 1.5;
+  }
+
+  /* H4 */
+  h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2874A6;
+    margin-top: 20px;
+    margin-bottom: 8px;
+  }
+
+  /* 본문 */
+  p {
+    margin-bottom: 16px;
+    word-break: keep-all;
+  }
+
+  /* 굵게 — 본문 색 유지, 굵기만 살짝 강조 */
+  strong {
+    font-weight: 600;
+    color: inherit;
+  }
+
+  /* 인라인 코드 */
+  code {
+    background: #F4F6F7;
+    border: 1px solid #D5D8DC;
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 14px;
+    font-family: 'Courier New', monospace;
+    color: #C0392B;
+  }
+
+  /* 코드 블록 */
+  pre {
+    background: #F4F6F7;
+    border: 1px solid #D5D8DC;
+    border-radius: 6px;
+    padding: 16px 20px;
+    overflow-x: auto;
+    margin: 16px 0 24px;
+  }
+  pre code {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 14px;
+    color: #2C3E50;
+    line-height: 1.7;
+  }
+
+  /* 리스트 */
+  ul, ol {
+    margin: 12px 0 16px;
+    padding-left: 28px;
+  }
+  li {
+    margin-bottom: 6px;
+    line-height: 1.8;
+  }
+
+  /* 인용구 */
+  blockquote {
+    border-left: 4px solid #AED6F1;
+    background: #EBF5FB;
+    margin: 16px 0;
+    padding: 12px 20px;
+    color: #2C3E50;
+    border-radius: 0 6px 6px 0;
+  }
+  blockquote p {
+    margin: 0;
+  }
+
+  /* 테이블 */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 15px;
+  }
+  th {
+    background: #1A5276;
+    color: #ffffff;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+  }
+  td {
+    padding: 9px 14px;
+    border-bottom: 1px solid #D5D8DC;
+    vertical-align: top;
+  }
+  tr:nth-child(even) td {
+    background: #F8F9FA;
+  }
+
+  /* 구분선 */
+  hr {
+    border: none;
+    border-top: 2px solid #EBF5FB;
+    margin: 32px 0;
+  }
+
+  /* 이미지 */
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+    border-radius: 6px;
+  }
+
+  /* 해시태그 (맨 하단) */
+  p:last-of-type {
+    color: #2874A6;
+    font-size: 14px;
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px solid #EBF5FB;
+  }
+
+  /* 링크 */
+  a {
+    color: #1A5276;
+    text-decoration: underline;
+  }
+  a:hover {
+    color: #2874A6;
+  }
+
+  </style>
+</head>
+<body>
+<h1 id="ai">AI 자동화 글쓰기, 실패했던 이유와 성공한 파이프라인</h1>
+<p><img alt="AI 자동화 글쓰기 - 2026-04-08" src="/Users/oungsooryu/Library/Mobile%20Documents/iCloud~md~obsidian/Documents/류웅수/블로그%20초안/images/2026-0408-블로그-자동화-파이프라인-세팅-cover.png" /></p>
+<br>
+<p>"매달 100개의 블로그 포스트를 어떻게 관리하나요?" 이 질문을 받을 때마다 저는 한 가지를 확신합니다. <strong>자동화의 성패는 도구가 아니라 설계에 달려 있다</strong>는 것입니다.</p>
+<br>
+<p>지난 2년간 저는 ChatGPT, 셀레니움, 각종 자동화 도구들을 시도했고, 대부분 실패했습니다. 그러다 발견한 것이 바로 <strong>하네스 엔지니어링</strong>이라는 에이전트 설계 방법론입니다. 이 글에서는 왜 기존 자동화 파이프라인이 실패했는지, 그리고 현재 어떻게 <strong>재현 가능한 블로그 자동화 시스템</strong>을 구축했는지 공개합니다.</p>
+<br>
+<h2 id="_1">기존 자동화가 실패한 이유</h2>
+<p><img alt="기존 자동화 실패 패턴" src="/Users/oungsooryu/Library/Mobile%20Documents/iCloud~md~obsidian/Documents/류웅수/블로그%20초안/images/2026-0408-블로그-자동화-파이프라인-세팅-section-1.png" /></p>
+<br>
+<p>대부분의 개발자와 블로거들이 자동화 파이프라인을 만들다가 실패하는 패턴은 명확합니다.</p>
+<br>
+<p><strong>첫째, "모든 것을 한 번에" 하려고 합니다.</strong> 뉴스 수집부터 요약, 포스트 작성, 발행까지 하나의 스크립트에 밀어 넣습니다. 처음엔 작동하지만, 한 부분이 실패하면 전체 파이프라인이 멈춥니다.</p>
+<br>
+<p><strong>둘째, AI 프롬프트만 계속 튜닝합니다.</strong> ChatGPT 마법의 프롬프트를 찾으려고 시간을 낭비합니다. 하지만 근본 문제는 아키텍처에 있습니다. 좋은 프롬프트도 형편한 데이터 흐름 위에서는 무용지물입니다.</p>
+<br>
+<p><strong>셋째, 규칙과 정책이 없습니다.</strong> 오늘은 포스트를 발행하고, 내일은 안 하고, 모레는 또 다른 형식으로 발행합니다. 일관성 없는 자동화는 결국 수동 개입을 요구합니다.</p>
+<br>
+<h2 id="_2">성공한 파이프라인의 아키텍처</h2>
+<p><img alt="파이프라인 아키텍처" src="/Users/oungsooryu/Library/Mobile%20Documents/iCloud~md~obsidian/Documents/류웅수/블로그%20초안/images/2026-0408-블로그-자동화-파이프라인-세팅-section-2.png" /></p>
+<br>
+<p>저는 이 문제를 해결하기 위해 <strong>하네스 엔지니어링</strong> 방식을 도입했습니다. 핵심은 4가지입니다.</p>
+<br>
+<p><strong>1단계: 계약서(CLAUDE.md) 작성</strong><br />
+프로젝트마다 규칙을 명시적으로 정의합니다. "어떤 폴더에 무엇을 저장할 것인가", "언제 발행할 것인가", "어떤 형식으로 할 것인가"를 200줄 이내로 정합니다. 이 계약서가 있으면 AI도, 스크립트도 일관성 있게 작동합니다.</p>
+<br>
+<p><strong>2단계: 에이전트 분리(단일 책임)</strong><br />
+뉴스 수집, 요약, 포스트 작성, 발행 등 각각을 독립적인 Python 에이전트로 만듭니다. 각 에이전트는 하나의 일만 합니다. 예를 들어 <code>news_scraper.py</code>는 뉴스만 수집하고, <code>summarizer.py</code>는 요약만 합니다.</p>
+<br>
+<p><strong>3단계: 오케스트레이션(연결만)</strong><br />
+이 에이전트들을 파이프라인 스크립트로 연결합니다. 데이터는 JSON으로 흐르고, 각 단계마다 에러를 체크합니다. 한 부분이 실패해도 나머지는 실행됩니다.</p>
+<br>
+<p><strong>4단계: 자동화(LaunchAgent + 스케줄)</strong><br />
+macOS LaunchAgent를 사용해 매일 정해진 시간에 파이프라인을 실행합니다. 결과는 자동으로 옵시디언(Obsidian)에 저장되고, 텔레그램으로 알림이 옵니다.</p>
+<br>
+<h2 id="_3">블로그 자동화 파이프라인 세팅 방법</h2>
+<p><img alt="세팅 방법 가이드" src="/Users/oungsooryu/Library/Mobile%20Documents/iCloud~md~obsidian/Documents/류웅수/블로그%20초안/images/2026-0408-블로그-자동화-파이프라인-세팅-section-3.png" /></p>
+<br>
+<p>실제로 구현해보겠습니다. 필요한 기술 스택은 <strong>Claude Code + Python + MCP + LaunchAgent + Obsidian</strong>입니다.</p>
+<br>
+<p><strong>Step 1: 에이전트 폴더 구조</strong></p>
+<div class="codehilite"><pre><span></span><code>~/.claude/agents/
+├── telegram_sender.py      # 텔레그램 발송
+├── news_scraper.py         # 뉴스 수집
+├── summarizer.py           # 요약
+├── obsidian_writer.py      # 옵시디언 저장
+└── orchestrators/
+    └── blog_pipeline.py    # 전체 연결
+</code></pre></div>
+
+<p><strong>Step 2: 단일 에이전트 만들기 (예: news_scraper.py)</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">NewsScraperAgent</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">topic</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">topic</span> <span class="o">=</span> <span class="n">topic</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">fetch_articles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># 뉴스 API 또는 RSS 피드에서 수집</span>
+        <span class="n">articles</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call_api</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">articles</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_call_api</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># 실제 구현</span>
+        <span class="k">pass</span>
+</code></pre></div>
+
+<p><strong>Step 3: 파이프라인 오케스트레이션</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">telegram_sender</span><span class="w"> </span><span class="kn">import</span> <span class="n">TelegramSender</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">news_scraper</span><span class="w"> </span><span class="kn">import</span> <span class="n">NewsScraperAgent</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">summarizer</span><span class="w"> </span><span class="kn">import</span> <span class="n">SummarizerAgent</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">obsidian_writer</span><span class="w"> </span><span class="kn">import</span> <span class="n">ObsidianWriter</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">blog_pipeline</span><span class="p">():</span>
+    <span class="n">scraper</span> <span class="o">=</span> <span class="n">NewsScraperAgent</span><span class="p">(</span><span class="s2">&quot;부동산&quot;</span><span class="p">)</span>
+    <span class="n">articles</span> <span class="o">=</span> <span class="n">scraper</span><span class="o">.</span><span class="n">fetch_articles</span><span class="p">()</span>
+
+    <span class="n">summarizer</span> <span class="o">=</span> <span class="n">SummarizerAgent</span><span class="p">()</span>
+    <span class="n">summaries</span> <span class="o">=</span> <span class="n">summarizer</span><span class="o">.</span><span class="n">summarize_batch</span><span class="p">(</span><span class="n">articles</span><span class="p">)</span>
+
+    <span class="n">writer</span> <span class="o">=</span> <span class="n">ObsidianWriter</span><span class="p">()</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">save_post</span><span class="p">(</span><span class="n">summaries</span><span class="p">)</span>
+
+    <span class="n">sender</span> <span class="o">=</span> <span class="n">TelegramSender</span><span class="p">()</span>
+    <span class="n">sender</span><span class="o">.</span><span class="n">notify</span><span class="p">(</span><span class="s2">&quot;포스트 3개 발행 완료&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p><strong>Step 4: LaunchAgent 자동화</strong><br />
+<code>~/Library/LaunchAgents/com.blog.pipeline.plist</code> 파일을 만들고:</p>
+<div class="codehilite"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;plist</span><span class="w"> </span><span class="na">version=</span><span class="s">&quot;1.0&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;dict&gt;</span>
+<span class="w">    </span><span class="nt">&lt;key&gt;</span>Label<span class="nt">&lt;/key&gt;</span>
+<span class="w">    </span><span class="nt">&lt;string&gt;</span>com.blog.pipeline<span class="nt">&lt;/string&gt;</span>
+<span class="w">    </span><span class="nt">&lt;key&gt;</span>ProgramArguments<span class="nt">&lt;/key&gt;</span>
+<span class="w">    </span><span class="nt">&lt;array&gt;</span>
+<span class="w">        </span><span class="nt">&lt;string&gt;</span>/usr/bin/python3<span class="nt">&lt;/string&gt;</span>
+<span class="w">        </span><span class="nt">&lt;string&gt;</span>/Users/username/.claude/agents/orchestrators/blog_pipeline.py<span class="nt">&lt;/string&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/array&gt;</span>
+<span class="w">    </span><span class="nt">&lt;key&gt;</span>StartCalendarInterval<span class="nt">&lt;/key&gt;</span>
+<span class="w">    </span><span class="nt">&lt;dict&gt;</span>
+<span class="w">        </span><span class="nt">&lt;key&gt;</span>Hour<span class="nt">&lt;/key&gt;</span>
+<span class="w">        </span><span class="nt">&lt;integer&gt;</span>7<span class="nt">&lt;/integer&gt;</span>
+<span class="w">        </span><span class="nt">&lt;key&gt;</span>Minute<span class="nt">&lt;/key&gt;</span>
+<span class="w">        </span><span class="nt">&lt;integer&gt;</span>0<span class="nt">&lt;/integer&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/dict&gt;</span>
+<span class="nt">&lt;/dict&gt;</span>
+<span class="nt">&lt;/plist&gt;</span>
+</code></pre></div>
+
+<p><code>launchctl load</code>로 등록하면 매일 아침 7시에 자동 실행됩니다.</p>
+<br>
+<h2 id="_4">이 방식으로 얻은 성과</h2>
+<p><img alt="Before/After 성과 비교" src="/Users/oungsooryu/Library/Mobile%20Documents/iCloud~md~obsidian/Documents/류웅수/블로그%20초안/images/2026-0408-블로그-자동화-파이프라인-세팅-section-4.png" /></p>
+<br>
+<p><strong>첫 번째: 일관성</strong><br />
+매달 정확히 같은 시간에 같은 형식으로 포스트가 발행됩니다. 네이버나 티스토리 크롤러가 일관성 있는 콘텐츠를 선호하기 때문에, 검색 순위 상승이 눈에 띕니다.</p>
+<br>
+<p><strong>두 번째: 확장성</strong><br />
+한 번 구축해놓으면 에이전트 추가만으로 기능을 확장할 수 있습니다. 뉴스 수집기를 추가하거나, 다른 플랫폼으로 배포하는 것도 간단합니다.</p>
+<br>
+<p><strong>셋째: 신뢰성</strong><br />
+각 에이전트가 독립적으로 테스트되므로, 버그를 찾기 쉽고 수정도 빠릅니다. 한 부분이 실패해도 나머지는 계속 작동합니다.</p>
+<br>
+<p>현재 저는 이 파이프라인으로 매월 30~50개의 부동산 관련 포스트를 자동 발행하고 있으며, 네이버 검색 순위 1~3위로 진입한 키워드가 15개입니다.</p>
+<br>
+<h2 id="_5">블로그 자동화의 함정과 회피법</h2>
+<p><img alt="자동화 함정과 회피법" src="/Users/oungsooryu/Library/Mobile%20Documents/iCloud~md~obsidian/Documents/류웅수/블로그%20초안/images/2026-0408-블로그-자동화-파이프라인-세팅-section-5.png" /></p>
+<br>
+<p>그런데 모든 것이 순탄한 것만은 아닙니다.</p>
+<br>
+<p><strong>함정 1: "모든 것을 자동화하려는 욕심"</strong><br />
+이미지, 섬네일, 소셜 미디어 공유까지 다 자동화하려다 보면 파이프라인이 복잡해집니다. 처음에는 핵심(텍스트 작성 + 발행)만 자동화하세요.</p>
+<br>
+<p><strong>함정 2: "좋은 데이터 없이 자동화한다"</strong><br />
+AI 모델이 아무리 좋아도 입력 데이터가 형편하면 출력도 형편합니다. 뉴스 수집기의 필터링부터 철저히 해야 합니다.</p>
+<br>
+<p><strong>함정 3: "계약서 없이 시작한다"</strong><br />
+CLAUDE.md 같은 명시적 규칙 문서가 없으면, 3개월 후 당신의 스크립트가 왜 그렇게 작동하는지 잊게 됩니다. 기술 부채가 쌓입니다.</p>
+<br>
+<h2 id="_6">자주 묻는 질문</h2>
+<p><img alt="FAQ - 자주 묻는 질문" src="/Users/oungsooryu/Library/Mobile%20Documents/iCloud~md~obsidian/Documents/류웅수/블로그%20초안/images/2026-0408-블로그-자동화-파이프라인-세팅-section-6.png" /></p>
+<br>
+<p><strong>Q. 네이버 블로그도 자동화할 수 있나요?</strong><br />
+네, 가능합니다. 하지만 네이버 블로그는 자동화를 감지하면 검색 제외 조치를 할 수 있으므로, 포스트마다 10~20% 정도의 수동 편집을 권장합니다. 완전 자동화는 티스토리나 기술 블로그에 적합합니다.</p>
+<br>
+<p><strong>Q. AI를 사용한 블로그 글쓰기, 정말 돈이 될까요?</strong><br />
+됩니다. 하지만 3개월은 기다려야 합니다. SEO 순위가 올라가는데 시간이 필요하기 때문입니다. 저의 경우 6개월째부터 구글 애드센스와 제휴 마케팅으로 월 200~300만 원의 수익이 발생했습니다.</p>
+<br>
+<p><strong>Q. 처음부터 완벽하게 설정해야 하나요?</strong><br />
+아닙니다. 70% 정도의 프롬프트로 시작하세요. 3주일 동안 실제 데이터로 테스트한 후 나머지 30%를 개선하는 것이 효율적입니다.</p>
+<br>
+<h2 id="_7">결론: 자동화는 도구가 아니라 설계다</h2>
+<p>"AI를 쓴다"와 "AI를 설계한다"는 완전히 다릅니다. ChatGPT 창에 프롬프트를 던지는 것은 전자입니다. 하지만 에이전트 분리, 파이프라인 설계, 명시적 규칙을 통해 일관성 있는 자동화 시스템을 만드는 것은 후자입니다.</p>
+<br>
+<p>블로그 자동화 파이프라인을 성공시키려면:</p>
+<ol>
+<li><strong>CLAUDE.md로 규칙을 명시하세요</strong></li>
+<li><strong>에이전트를 분리하고 단일 책임 원칙을 지키세요</strong></li>
+<li><strong>파이프라인으로 연결하고 에러 처리를 철저히 하세요</strong></li>
+<li><strong>LaunchAgent로 자동화하고 정기적으로 모니터링하세요</strong></li>
+</ol>
+<br>
+<p>이 과정을 거치면, 3개월 뒤 당신은 매달 수십 개의 포스트를 자동으로 발행하면서도, 언제든 규칙을 조정할 수 있는 시스템을 갖게 됩니다. 그게 진정한 자동화입니다.</p>
+<hr />
+<p><strong>#블로그자동화 #포스팅자동화 #AI블로그 #자동화파이프라인 #블로그수익화 #네이버블로그자동화 #ChatGPT블로그 #파이썬자동화 #블로그효율화 #콘텐츠자동화 #하네스엔지니어링 #에이전트자동화 #부동산블로그 #마케팅자동화 #개발자블로그</strong></p>
+</body>
+</html>
