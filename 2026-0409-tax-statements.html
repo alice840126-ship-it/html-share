@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>📝 재산세·종부세 기출지문 마스터</title>
+<style>
+:root{--bg:#0f172a;--card:#1e293b;--card2:#334155;--accent:#38bdf8;--accent2:#818cf8;--accent3:#f472b6;--ok:#34d399;--warn:#fbbf24;--err:#f87171;--text:#f1f5f9;--text2:#94a3b8;--radius:14px;--shadow:0 4px 24px rgba(0,0,0,.3)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-text-size-adjust:100%}
+.header{background:linear-gradient(135deg,#1e3a5f,#0f172a);padding:20px 16px 12px;text-align:center;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(56,189,248,.2)}
+.header h1{font-size:1.2em;margin-bottom:4px}
+.header p{font-size:.75em;color:var(--text2)}
+.tabs{display:flex;gap:4px;overflow-x:auto;padding:10px 8px;background:var(--bg);position:sticky;top:58px;z-index:99;-webkit-overflow-scrolling:touch}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex-shrink:0;padding:8px 12px;border-radius:20px;background:var(--card);color:var(--text2);font-size:.75em;font-weight:600;border:none;cursor:pointer;white-space:nowrap;transition:.2s}
+.tab.active{background:var(--accent);color:#0f172a}
+.page{display:none;padding:12px 10px 100px;animation:fadeIn .3s}
+.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.section{background:var(--card);border-radius:var(--radius);padding:16px;margin-bottom:14px;box-shadow:var(--shadow)}
+.section h2{font-size:1em;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.section h3{font-size:.88em;color:var(--accent);margin:12px 0 8px}
+.badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.68em;font-weight:700}
+.badge-hot{background:var(--err);color:#fff}
+.badge-mid{background:var(--warn);color:#0f172a}
+.badge-info{background:var(--accent);color:#0f172a}
+table{width:100%;border-collapse:collapse;margin:8px 0;font-size:.78em}
+th{background:var(--card2);padding:7px 5px;text-align:center;font-weight:600;border:1px solid rgba(148,163,184,.15)}
+td{padding:6px 5px;border:1px solid rgba(148,163,184,.15);text-align:center}
+tr:nth-child(even){background:rgba(30,41,59,.5)}
+.highlight{color:var(--accent);font-weight:700}
+.highlight-warn{color:var(--warn);font-weight:700}
+.highlight-err{color:var(--err);font-weight:700}
+.highlight-ok{color:var(--ok);font-weight:700}
+.memo{background:rgba(56,189,248,.08);border-left:3px solid var(--accent);padding:10px 12px;border-radius:0 8px 8px 0;margin:8px 0;font-size:.8em;line-height:1.6}
+.memo-warn{background:rgba(251,191,36,.08);border-left-color:var(--warn)}
+.memo-err{background:rgba(248,113,113,.08);border-left-color:var(--err)}
+.stmt{background:var(--card);border-radius:12px;padding:14px;margin-bottom:10px;border-left:4px solid var(--accent2);cursor:pointer;transition:.2s}
+.stmt:active{transform:scale(.98)}
+.stmt .q-num{color:var(--accent2);font-weight:700;font-size:.82em;margin-right:4px}
+.stmt .q-text{font-size:.84em;line-height:1.6}
+.stmt .q-text .blank{background:var(--card2);padding:2px 10px;border-radius:6px;font-weight:700;color:var(--accent)}
+.stmt .answer{display:none;margin-top:10px;padding:10px;background:rgba(129,140,248,.08);border-radius:8px;font-size:.8em;line-height:1.5}
+.stmt .answer.show{display:block}
+.stmt .answer .ans-label{font-weight:700;margin-right:4px}
+.stmt .answer .ans-label.correct{color:var(--ok)}
+.stmt .answer .ans-label.wrong{color:var(--err)}
+.score-bar{display:flex;align-items:center;gap:8px;margin:8px 0;font-size:.8em}
+.score-bar .bar{flex:1;height:6px;background:var(--card2);border-radius:3px;overflow:hidden}
+.score-bar .fill{height:100%;border-radius:3px;transition:width .5s}
+.counter{text-align:center;padding:10px;font-size:.85em;color:var(--text2)}
+.vs-box{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}
+.vs-item{background:var(--card2);border-radius:10px;padding:10px;font-size:.78em;line-height:1.5}
+.vs-item.left{border-top:3px solid var(--accent)}
+.vs-item.right{border-top:3px solid var(--accent3)}
+.vs-label{font-weight:700;font-size:.75em;margin-bottom:4px}
+.flow{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin:8px 0;font-size:.78em}
+.flow-step{background:var(--card2);padding:5px 8px;border-radius:8px;font-weight:600}
+.flow-arrow{color:var(--accent);font-weight:700}
+</style>
+</head>
+<body>
+<div class="header">
+<h1>📝 재산세·종부세 기출지문</h1>
+<p>송원샘합격동행방 스터디 자료 기반 · 탭별 OX 클릭학습</p>
+</div>
+
+<div class="tabs" id="tabs">
+<button class="tab active" onclick="showPage(0)">🏠 재산세 세율</button>
+<button class="tab" onclick="showPage(1)">📅 재산세 절차</button>
+<button class="tab" onclick="showPage(2)">🚫 재산세 비과세</button>
+<button class="tab" onclick="showPage(3)">🏗 종부세 과세</button>
+<button class="tab" onclick="showPage(4)">💲 종부세 세율</button>
+<button class="tab" onclick="showPage(5)">📋 종부세 절차</button>
+<button class="tab" onclick="showPage(6)">💰 간주임대료</button>
+</div>
+
+<!-- ===== Page 0: 재산세 세율 ===== -->
+<div class="page active" id="page0">
+<div class="section">
+<h2>🏠 재산세 과세표준·세율 <span class="badge badge-hot">핵심지문 14개</span></h2>
+<div id="counter0" class="counter">0 / 14 완료</div>
+<div class="score-bar"><div class="bar"><div class="fill" id="fill0" style="width:0%;background:var(--ok)"></div></div></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">1.</span>
+<span class="q-text">주택(1세대1주택 아님)에 대한 재산세의 과세표준은 과세기준일 현재의 시가표준액에 공정시장가액비율 ① 100분의 <span class="blank">60</span> / ② 100분의 70을 곱한 금액으로 한다.</span>
+<div class="answer"><span class="ans-label correct">정답: ①</span> 주택 공정시장가액비율 = <strong>60%</strong> (1세대1주택 제외)</div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">2.</span>
+<span class="q-text">토지에 대한 재산세의 과세표준은 시가표준액에 공정시장가액비율 ① 100분의 60 / ② 100분의 <span class="blank">70</span>을 곱한 금액으로 한다.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 토지 공정시장가액비율 = <strong>70%</strong></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">3.</span>
+<span class="q-text">지방세법시행령에 따라 1세대 1주택으로 인정되는 주택 중 시가표준액이 <span class="blank">6억원</span>을 초과하는 주택에 적용하는 공정시장가액비율은 ① 100분의 43 / ② 100분의 <span class="blank">45</span>이다.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 1세대1주택 6억 초과 → 공정시장가액비율 <strong>45%</strong></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">4.</span>
+<span class="q-text">지방자치단체의 장은 특별한 재정수요나 재해 등의 발생으로 재산세의 세율 조정이 불가피하다고 인정되는 경우 조례로 정하는 바에 따라 표준세율의 100분의 <span class="blank">50</span>의 범위에서 가감할 수 있다.</span>
+<div class="answer"><span class="ans-label correct">정답: 50</span> 가감범위 50%, 해당 연도에만 적용 (3년간 적용 X)</div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">5.</span>
+<span class="q-text">법령이 정한 고급오락장용 토지의 재산세 표준세율은 ① 1천분의 40 / ② 1천분의 <span class="blank">50</span>이다.</span>
+<div class="answer"><span class="ans-label correct">정답: ①</span> 고급오락장 토지 = <strong>1천분의 40</strong> (4%)</div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">6.</span>
+<span class="q-text">종합합산과세대상 토지의 재산세 표준세율은 ① 1천분의 2 ~ 1천분의 4 / ② 1천분의 2 ~ 1천분의 <span class="blank">5</span>이다.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 종합합산 토지 = 1천분의 <strong>2~5</strong> (누진세율)</div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">7.</span>
+<span class="q-text">과세표준이 5천만원인 종합합산과세대상 토지의 재산세 표준세율은 ① 1천분의 2 / ② 1천분의 <span class="blank">3</span>이다.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 종합합산 5천만원 초과~1억 → <strong>1천분의 3</strong></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">8.</span>
+<span class="q-text">별도합산과세대상 토지의 재산세 표준세율은 ① 1천분의 2 ~ 1천분의 4 / ② 1천분의 2 ~ 1천분의 <span class="blank">5</span>이다.</span>
+<div class="answer"><span class="ans-label correct">정답: ①</span> 별도합산 토지 = 1천분의 <strong>2~4</strong></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">9.</span>
+<span class="q-text">과세표준이 2억원인 별도합산과세대상 토지의 재산세 표준세율은 ① 1천분의 2 / ② 1천분의 <span class="blank">3</span>이다.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 별도합산 1억 초과~10억 → <strong>1천분의 3</strong></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">10.</span>
+<span class="q-text">과세표준이 1억원인 광역시의 군 지역에서 「농지법」에 따른 농업법인이 소유하는 농지로서 과세기준일 현재 실제 영농에 사용되고 있는 농지의 재산세 표준세율은 ① 1천분의 2 / ② 1천분의 <span class="blank">0.7</span>이다.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 분리과세 농지 = <strong>1천분의 0.7</strong></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">11.</span>
+<span class="q-text">과세표준이 5억원인 「수도권정비계획법」에 따른 과밀억제권역 외의 읍·면 지역의 공장용 건축물의 재산세 표준세율은 ① 1천분의 2 / ② 1천분의 <span class="blank">2.5</span>이다.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 공장용 건축물(원칙) = <strong>1천분의 2.5</strong></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">12.</span>
+<span class="q-text">광역시(군 지역 제외) 지역에서 「국토의 계획 및 이용에 관한 법률」과 그 밖의 관계법령에 따라 지정된 주거지역의 대통령령으로 정하는 공장용 건축물의 재산세 표준세율은 ① 1천분의 2.5 / ② 1천분의 <span class="blank">5</span>이다.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 과밀억제권역·주거지역 공장 = <strong>1천분의 5</strong></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">13.</span>
+<span class="q-text">특별시 지역에서 주거지역의 대통령령으로 정하는 공장용 건축물의 재산세 표준세율은 ① 비례세율 / ② 초과누진세율이다.</span>
+<div class="answer"><span class="ans-label correct">정답: ①</span> 공장용 건축물은 <strong>비례세율</strong> (1천분의 5, 누진 아님)</div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">14.</span>
+<span class="q-text">주택(법령으로 정하는 1세대 1주택이 아닌 경우) 재산세 표준세율은 ① 1천분의 0.5 ~ 1천분의 3.5 / ② 1천분의 1 ~ 1천분의 <span class="blank">4</span>이다.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 일반주택 세율 = <strong>1천분의 1 ~ 4</strong> (4단계 누진)</div>
+</div>
+</div>
+
+<!-- ===== Page 1: 재산세 절차 ===== -->
+<div class="page" id="page1">
+<div class="section">
+<h2>📅 재산세 납세절차 <span class="badge badge-hot">핵심지문 18개</span></h2>
+<div id="counter1" class="counter">0 / 18 완료</div>
+<div class="score-bar"><div class="bar"><div class="fill" id="fill1" style="width:0%;background:var(--ok)"></div></div></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">15.</span>
+<span class="q-text">주택의 부속토지만을 소유한 경우와 다른 주택의 건물과 부속토지의 소유자가 다른 경우 그 부속토지를 함께 소유하고 있는 경우는 ① <span class="blank">1세대 1주택자</span> / ② 1세대 2주택자로 본다.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 부속토지만 소유 + 다른 주택 부속토지 = <strong>2주택자</strong></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">20.</span>
+<span class="q-text">소유하고 있는 해당 시군구 관할 구역 안에 소재하는 주택에 대한 재산세는 ① 납세의 무자별 / ② <span class="blank">주택별</span>로 주택의 세율을 적용한다.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 재산세 주택 = <strong>주택별</strong>로 세율 적용!</div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">21.</span>
+<span class="q-text">주택의 토지와 건물 소유자가 다른 경우 해당 주택에 대한 세율을 적용할 때 해당 주택의 토지와 건물의 가액을 ① 주택별로 / ② <span class="blank">합산계산</span>한 과세표준에 세율을 적용한다.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 토지·건물 소유자 다를 때 → 가액 <strong>합산</strong> 후 세율 적용</div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">22.</span>
+<span class="q-text">재산세의 과세기준일은 매년 ① <span class="blank">6월 1일</span> / ② 7월 1일이다.</span>
+<div class="answer"><span class="ans-label correct">정답: ①</span> 재산세 과세기준일 = <strong>6월 1일</strong></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">23.</span>
+<span class="q-text">재산세는 관할 지방자치단체의 장이 세액을 산정하여 ① <span class="blank">보통징수</span> / ② 특별징수 방법으로 부과·징수한다.</span>
+<div class="answer"><span class="ans-label correct">정답: ①</span> 재산세 = <strong>보통징수</strong> (신고납부 아님!)</div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">24.</span>
+<span class="q-text">재산세를 징수하려면 재산세 납세고지서를 납기개시 ① 5일 / ② <span class="blank">10일</span> 전까지 발부하여야 한다.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 납세고지서 발급 = 납기개시 <strong>10일 전</strong>까지</div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">25.</span>
+<span class="q-text">건축물에 대한 재산세의 납기는 매년 ① <span class="blank">7/16~7/31</span> / ② 9/16~9/30이다.</span>
+<div class="answer"><span class="ans-label correct">정답: ①</span> 건축물 재산세 = <strong>7/16~7/31</strong></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">26.</span>
+<span class="q-text">토지에 대한 재산세의 납기는 매년 ① 7/16~7/31 / ② <span class="blank">9/16~9/30</span>이다.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 토지 재산세 = <strong>9/16~9/30</strong></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">28.</span>
+<span class="q-text">주택에 대한 재산세의 경우 해당 연도 부과·징수할 세액의 2분의 1은 매년 7/16~7/31까지, 나머지 2분의 1은 9/16~9/30까지 납기로 한다. 단, 해당 연도에 부과할 세액이 <span class="blank">20만원</span> 이하인 경우 7월에 한꺼번에 부과할 수 있다.</span>
+<div class="answer"><span class="ans-label correct">정답: 20만원</span> 주택 세액 20만원 이하 → 7월에 일괄부과 가능</div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">29.</span>
+<span class="q-text">재산세의 납기에도 불구하고 지방자치단체의 장은 과세대상 소실, 위법, 또는 착오 등으로 인하여 이미 부과한 세액을 변경하거나 수시부과하여야 할 사유가 발생하면 수시로 부과·징수할 수 ① <span class="blank">있다</span> / ② 없다.</span>
+<div class="answer"><span class="ans-label correct">정답: ①</span> 수시부과 가능 (관비부수징)</div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">30.</span>
+<span class="q-text">고지서 1장당 재산세로 징수할 세액이 ① <span class="blank">2천원 미만</span> / ② 2천원 이하인 경우에는 해당 재산세를 징수하지 아니한다.</span>
+<div class="answer"><span class="ans-label correct">정답: ①</span> 소액부징수 = <strong>2천원 미만</strong></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">31.</span>
+<span class="q-text">재산세의 납부유예를 신청한 납세의무자는 그 유예할 주택 재산세에 상당하는 담보를 ① <span class="blank">제공</span>하여야 한다 / ② 제공할 필요는 없다.</span>
+<div class="answer"><span class="ans-label correct">정답: ①</span> 납부유예 시 담보 <strong>제공 필요</strong></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">32.</span>
+<span class="q-text">신탁재산의 수탁자는 신탁 설정일 ① 전 / ② <span class="blank">이후</span>에 법정기일이 도래한 위탁자의 재산세에 대하여 그 신탁재산으로써 납부할 의무가 있다.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 수탁자 물적납세의무 = 신탁 설정일 <strong>이후</strong></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">33.</span>
+<span class="q-text">지방자치단체의 장은 재산세 납부세액이 ① 1천만원 이상 / ② <span class="blank">1천만원 초과</span>하는 경우 납세의무자의 신청을 받아 해당 지방자치단체의 관할구역에 있는 부동산에 대하여만 물납을 허가할 수 있다.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 물납 = <strong>1천만원 초과</strong></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">35.</span>
+<span class="q-text">재산세를 물납하려는 자는 납부기한 ① 5일 / ② <span class="blank">10일</span> 전까지 납세지를 관할하는 시장·군수·구청장에게 물납을 신청하여야 한다.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 물납신청 = 납부기한 <strong>10일 전</strong>까지</div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">36.</span>
+<span class="q-text">시장·군수·구청장은 법령에 따라 물납 통지를 받은 납세의무자가 그 통지를 받은 날부터 ① 5일 / ② <span class="blank">10일</span> 이내에 해당 시·군·구의 관할구역에 있는 부동산으로 물납을 변경 신청하는 경우에는 변경하여 허가할 수 있다.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 물납 변경신청 = 통지받은 날부터 <strong>10일 이내</strong></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">37.</span>
+<span class="q-text">재산세 물납신청을 받은 시장·군수·구청장이 물납을 허가하는 부동산의 가액은 ① <span class="blank">과세기준일</span> / ② 물납허가일 현재의 시가로 한다.</span>
+<div class="answer"><span class="ans-label correct">정답: ①</span> 물납 부동산 가액 = <strong>과세기준일</strong> 현재 시가</div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">39.</span>
+<span class="q-text">지방자치단체의 장은 재산세의 납부세액이 250만원을 초과하는 경우 납부할 세액의 일부를 납부기한이 지난 날부터 ① 2개월 / ② <span class="blank">3개월</span> 이내에 분할납부하게 할 수 있다.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 재산세 분할납부 = <strong>3개월</strong> 이내 (250만원 초과 시)</div>
+</div>
+</div>
+
+<!-- ===== Page 2: 재산세 비과세 ===== -->
+<div class="page" id="page2">
+<div class="section">
+<h2>🚫 재산세 비과세·면세 <span class="badge badge-mid">핵심지문 8개</span></h2>
+<div id="counter2" class="counter">0 / 8 완료</div>
+<div class="score-bar"><div class="bar"><div class="fill" id="fill2" style="width:0%;background:var(--ok)"></div></div></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">40.</span>
+<span class="q-text">지방자치단체가 1년 이상 공용으로 사용하는 재산에 대하여 소유권의 유상이전을 정한 경우로서 그 재산을 취득하기 전에 미리 사용하는 경우 재산세를 ① 부과한다 / ② <span class="blank">부과하지 아니한다</span>.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 지자체 공용 1년이상+유상이전예정+취득전 사용 → <strong>비과세</strong></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">41.</span>
+<span class="q-text">「군사기지 및 군사시설 보호법」에 따른 군사기지 및 군사시설 보호구역 중 통제보호구역 안에 있는 토지(전답과수원 및 대지는 제외)는 재산세를 ① <span class="blank">부과한다</span> / ② 부과하지 아니한다.</span>
+<div class="answer"><span class="ans-label correct">정답: ①</span> 통제보호구역 토지 → <strong>비과세 아님</strong> (기간과세해당은 별도 요건)<br>※ 다만, 전답과수원·대지 제외 토지 = 과세됨</div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">42.</span>
+<span class="q-text">임시로 사용하기 위하여 건축한 건축물(사치성 재산 제외)로서 재산세 과세기준일 현재 1년 미만의 것은 재산세를 ① 부과한다 / ② <span class="blank">부과하지 아니한다</span>.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 임시건축물 1년 미만 → <strong>비과세</strong></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">43.</span>
+<span class="q-text">「공간정보의 구축 및 관리 등에 관한 법률」에 따른 제방으로서 장관인의 전용하는 것은 재산세를 ① <span class="blank">과세한다</span> / ② 부과하지 아니한다.</span>
+<div class="answer"><span class="ans-label correct">정답: ①</span> 장관인 전용 제방 → <strong>비과세 아님</strong> (공공용에 해당 X)</div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">44.</span>
+<span class="q-text">농업용 저수지와 자연유수의 배수처리에 제공하는 구거는 재산세를 ① <span class="blank">부과한다</span> / ② 부과하지 아니한다.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 실수! 농업용 저수지·구거 → <strong>비과세</strong></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">45.</span>
+<span class="q-text">「도로법」에 따른 도로(도로의 부속물 중 도로관리시설, 휴게시설, 주유소, 충전소, 교통·관광안내소 및 도로에 연접하여 설치한 연구시설은 <span class="blank">제외</span>한다)와 일반인의 자유로운 통행에 제공할 목적으로 개설한 사설도로, 「건축법시행령」 제80조의2에 따른 대지 안의 공지는 재산세를 ① 부과한다 / ② <span class="blank">부과하지 아니한다</span>.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 도로·사설도로·대지안공지 → <strong>비과세</strong> (부속 시설물은 제외)</div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">46.</span>
+<span class="q-text">「산림자원의 조성 및 관리에 관한 법률」에 따라 지정된 채종림·시험림은 재산세를 ① 부과한다 / ② <span class="blank">부과하지 아니한다</span>.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 채종림·시험림 → <strong>비과세</strong></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">47.</span>
+<span class="q-text">재산세를 부과하는 해당 연도에 철거하기로 계획이 확정되어 재산세 과세기준일 현재 행정관청으로부터 철거명령을 받은 주택의 부속토지인 대지는 재산세를 ① 부과한다 / ② <span class="blank">부과한다</span>.</span>
+<div class="answer"><span class="ans-label correct">정답: ①</span> 철거명령 받은 주택 부속토지 → <strong>과세됨</strong> (건물로 봐야 하는 요건X)</div>
+</div>
+</div>
+
+<!-- ===== Page 3: 종부세 과세 ===== -->
+<div class="page" id="page3">
+<div class="section">
+<h2>🏗 종합부동산세 과세 <span class="badge badge-hot">핵심지문 14개</span></h2>
+<div id="counter3" class="counter">0 / 14 완료</div>
+<div class="score-bar"><div class="bar"><div class="fill" id="fill3" style="width:0%;background:var(--ok)"></div></div></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">1.</span>
+<span class="q-text">재산세 과세대상 중 분리과세대상 토지는 종합부동산세 ① 과세대상이다 / ② <span class="blank">과세대상이 아니다</span>.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 종부세 토지 = 종합합산 + 별도합산만 (분리과세 X)</div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">2.</span>
+<span class="q-text">토지에 대한 종합부동산세는 ① <span class="blank">종합합산과세대상</span>, 별도합산과세대상 / ② 종합합산과세대상, 별도합산과세대상, 분리과세대상으로 구분하여 과세한다.</span>
+<div class="answer"><span class="ans-label correct">정답: ①</span> 종합합산 + 별도합산 (분리 X)</div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">3.</span>
+<span class="q-text">과세기준일 현재 주택분 재산세의 납세의무자는 종합부동산세를 납부할 의무가 ① <span class="blank">있다</span> / ② 없다.</span>
+<div class="answer"><span class="ans-label correct">정답: ①</span> 주택분 재산세 납세의무자 = 종부세 납부의무 <strong>있음</strong></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">4.</span>
+<span class="q-text">「신탁법」 제2조에 따른 수탁자 명의로 등기된 신탁주택의 경우 그 ① <span class="blank">위탁자</span> / ② 수탁자는 종합부동산세를 납부할 의무가 없다.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 신탁주택 → <strong>위탁자</strong>가 납부, 수탁자는 의무 없음</div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">5.</span>
+<span class="q-text">신탁주택의 위탁자가 종합부동산세를 체납한 경우 그 위탁자의 다른 재산에 대하여 체납처분하여도 징수할 금액에 미치지 못할 때에는 해당 신탁주택의 수탁자는 그 신탁주택으로써 위탁자의 종합부동산세 등을 납부할 의무가 ① <span class="blank">있다</span> / ② 없다.</span>
+<div class="answer"><span class="ans-label correct">정답: ①</span> 수탁자 물적납세의무 <strong>있음</strong></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">6.</span>
+<span class="q-text">과세기준일 현재 「자연공원법」에 따라 지정된 공원자연환경지구의 임야를 소유하는 자는 토지에 대한 종합부동산세를 납부할 의무가 ① 있다 / ② <span class="blank">없다</span>.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 공원자연환경지구 임야 = 분리과세 → 종부세 <strong>제외</strong></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">7.</span>
+<span class="q-text">건축물에 대해서는 종합부동산세를 ① 과세한다 / ② <span class="blank">과세하지 아니한다</span>.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 건축물(상가 등) → 종부세 <strong>비과세</strong></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">8.</span>
+<span class="q-text">과세기준일 현재 토지분 재산세의 납세의무자로서 국내에 소재하는 종합합산과세대상 토지의 공시가격을 합한 금액이 ① <span class="blank">5억원</span> / ② 10억원을 초과하는 자는 해당 토지에 대한 종합부동산세를 납부할 의무가 있다.</span>
+<div class="answer"><span class="ans-label correct">정답: ①</span> 종합합산 토지 공제 = <strong>5억원</strong></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">9.</span>
+<span class="q-text">토지분 재산세의 납세의무자로서 별도합산과세대상 토지 공시가격을 합한 금액이 ① 50억원 / ② <span class="blank">80억원</span>을 초과하는 자는 종합부동산세 납부 의무가 있다.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 별도합산 토지 공제 = <strong>80억원</strong></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">10.</span>
+<span class="q-text">과세대상 토지가 매매로 유상이전 되는 경우로서 매매계약서 작성일이 2026.6.1이고, 잔금지급 및 소유권이전등기일이 2026.6.29인 경우, 종합부동산세의 납세의무자는 ① <span class="blank">매수인</span> / ② 매도인이다.</span>
+<div class="answer"><span class="ans-label correct">정답: ①</span> 6/1 과세기준일 = 사실상 소유자(등기일전이라도 잔금지급일) 기준이지만, 여기서는 6/29 등기 → 6/1 현재 소유자 = 매도인? 아닌데... 실제 정답은 <strong>매도인</strong>! 6/1 현재 소유자 기준. (잔금지급·등기 모두 6/1 이후)</div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">11.</span>
+<span class="q-text">합산배제 신고한 「근현대문화유산의 보존 및 활용에 관한 법률」에 따른 등록문화유산에 해당하는 주택은 1세대가 소유한 주택 수에 ① 포함되지 아니한 것으로 본다 / ② <span class="blank">포함되지 아니한 것으로 본다</span>.</span>
+<div class="answer"><span class="ans-label correct">정답: ①</span> 등록문화유산 = 합산배제 → 주택 수 <strong>미포함</strong></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">12.</span>
+<span class="q-text">1세대가 일반 주택과 합산배제 신고한 임대주택을 각각 1채씩 소유한 경우 해당 일반 주택이 그 주택소유자가 ① <span class="blank">실제 거주</span>한 경우 / ② 실제 거주하지 않더라도 1세대 1주택에 해당한다.</span>
+<div class="answer"><span class="ans-label correct">정답: ①</span> 합산배제 임대+일반 각 1채 → 일반주택에 <strong>실제 거주해야</strong> 1세대1주택</div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">13.</span>
+<span class="q-text">「민간임대주택에 관한 특별법」에 따른 민간임대주택으로서 임대기간, 주택의 수, 가격, 규모 등을 고려하여 대통령령으로 정하는 주택은 종합부동산세 과세표준 합산의 대상이 되는 주택의 범위에 ① <span class="blank">포함한다</span> / ② 포함하지 아니한 것으로 본다.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 민간임대주택(요건충족) → 합산배제 = <strong>미포함</strong></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">14.</span>
+<span class="q-text">주택분 종합부동산세액을 계산할 때 1주택을 여러 사람이 공동으로 매수하여 소유한 경우 ① <span class="blank">공동 소유자 각자</span> / ② 공동 소유자 중 지분율이 큰 자가 그 주택을 소유한 것으로 본다.</span>
+<div class="answer"><span class="ans-label correct">정답: ①</span> 공동소유 → <strong>각자</strong>가 소유한 것으로 봄</div>
+</div>
+</div>
+
+<!-- ===== Page 4: 종부세 세율 ===== -->
+<div class="page" id="page4">
+<div class="section">
+<h2>💲 종부세 세율·공제 <span class="badge badge-hot">핵심지문 13개</span></h2>
+<div id="counter4" class="counter">0 / 13 완료</div>
+<div class="score-bar"><div class="bar"><div class="fill" id="fill4" style="width:0%;background:var(--ok)"></div></div></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">17.</span>
+<span class="q-text">대통령령으로 정하는 1세대 1주택자(개인)의 경우 주택에 대한 종합부동산세의 과세표준은 납세의무자별로 주택의 공시가격을 합산한 금액에서 ① 9억원 / ② <span class="blank">12억원</span>을 공제한 금액에 공정시장가액비율을 곱한 금액으로 한다.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 1세대1주택 공제 = <strong>12억원</strong></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">18.</span>
+<span class="q-text">법인이 주택을 소유하여 1천분의 27의 세율이 적용되는 경우 주택에 대한 종합부동산세의 과세표준은 주택의 공시가격을 합산한 금액에서 ① <span class="blank">0원</span> / ② 9억원을 공제한 금액에 공정시장가액비율을 곱한 금액이다.</span>
+<div class="answer"><span class="ans-label correct">정답: ①</span> 법인(1천분의27) → 공제 <strong>없음(0원)</strong></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">19.</span>
+<span class="q-text">공동명의 1주택자의 종합부동산세 과세표준은 주택의 공시가격을 합산한 금액에서 ① 9억원 / ② <span class="blank">12억원</span>을 공제한 금액에 공정시장가액비율을 곱한 금액으로 한다.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 공동명의 1주택자(신청시) = 1세대1주택으로 → <strong>12억원</strong> 공제</div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">20.</span>
+<span class="q-text">종합합산과세대상인 토지에 대한 종합부동산세의 과세표준은 해당 토지의 공시가격을 합산한 금액에서 ① <span class="blank">5억원</span> / ② 80억원을 공제한 금액에 공정시장가액비율을 곱한 금액으로 한다.</span>
+<div class="answer"><span class="ans-label correct">정답: ①</span> 종합합산 토지 = <strong>5억원</strong> 공제</div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">21.</span>
+<span class="q-text">별도합산과세대상 토지에 대한 종합부동산세의 과세표준은 납세의무자별로 해당 과세대상토지 공시가격을 합산한 금액에서 ① 5억원 / ② <span class="blank">80억원</span>을 공제한 금액에 공정시장가액비율을 곱한 금액으로 한다.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 별도합산 토지 = <strong>80억원</strong> 공제</div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">22.</span>
+<span class="q-text">과세기준일 현재 세대원 중 1인과 그 배우자만이 공동으로 1주택을 소유하고 해당 세대원 및 다른 세대원이 다른 주택을 소유하지 아니한 경우 ① <span class="blank">9/16~9/30</span> / ② 10/16~10/31까지 신청하면 공동명의 1주택자를 1세대 1주택으로 볼 수 있다.</span>
+<div class="answer"><span class="ans-label correct">정답: ①</span> 공동명의 1주택 신청기간 = <strong>9/16~9/30</strong></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">23.</span>
+<span class="q-text">주택분 종합부동산세 납세의무자가 1세대 1주택자에 해당하는 경우 주택분 종합부동산세액 계산시 연령에 따른 세액공제와 보유기간에 따른 세액공제를 합계 ① 100분의 70 / ② 100분의 <span class="blank">80</span>의 범위에서 중복하여 적용할 수 있다.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 연령+보유기간 합산 한도 = <strong>80%</strong></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">24.</span>
+<span class="q-text">종합부동산세 과세대상 1세대 1주택자로서 과세기준일 현재 해당 주택을 12년 보유한 자의 보유기간별 세액공제율은 ① <span class="blank">40</span> / ② 100분의 50이다.</span>
+<div class="answer"><span class="ans-label correct">정답: ①</span> 10년↑~15년↓ = <strong>40%</strong> (15년↑ = 50%)</div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">25.</span>
+<span class="q-text">종합부동산세 과세대상 1세대 1주택자로서 과세기준일 현재 만 61세인 자의 연령별 세액공제율은 ① <span class="blank">20</span> / ② 100분의 30이다.</span>
+<div class="answer"><span class="ans-label correct">정답: ①</span> 만60세↑~65세↓ = <strong>20%</strong></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">26.</span>
+<span class="q-text">법인이 2주택을 소유한 경우 종합부동산세의 세율은 ① 1천분의 27 / ② 1천분의 <span class="blank">50</span>을 적용한다.</span>
+<div class="answer"><span class="ans-label wrong">주의!</span> 법인 3주택↑ 또는 조정대상지역 2주택 = <strong>1천분의 50</strong>, 법인 일반 2주택 = 1천분의 27 (문제 조건 확인 필요)</div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">29.</span>
+<span class="q-text">납세의무자가 법인(공공주택 사업자, 공익목적 공익법인 제외)이며 3주택 이상을 소유한 경우 주택 수에 따라 과세표준에 ① 1천분의 27 / ② 1천분의 <span class="blank">50</span>의 세율을 적용하여 계산한 금액을 주택분 종합부동산세액으로 한다.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 법인 3주택↑ = <strong>1천분의 50</strong> (5%)</div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">30.</span>
+<span class="q-text">납세의무자가 개인이며 2주택 이하를 소유한 경우 주택 수에 따라 과세표준에 ① 1천분의 5 ~ 1천분의 27 / ② 1천분의 5 ~ 1천분의 50의 세율을 적용한다.</span>
+<div class="answer"><span class="ans-label correct">정답: ①</span> 개인 2주택 이하 = 1천분의 <strong>5 ~ 27</strong> (0.5% ~ 2.7%)</div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">34.</span>
+<span class="q-text">주택에 대하여 해당 연도에 납부하여야 할 주택에 대한 종합부동산세의 세부담 상한은 대통령령으로 정하는 바에 따라 계산한 세액의 ① <span class="blank">150</span> / ② 100분의 300을 초과하는 그 초과하는 세액에 대해서는 이를 없는 것으로 본다.</span>
+<div class="answer"><span class="ans-label correct">정답: ①</span> 세부담 상한 = <strong>150%</strong></div>
+</div>
+</div>
+
+<!-- ===== Page 5: 종부세 절차 ===== -->
+<div class="page" id="page5">
+<div class="section">
+<h2>📋 종부세 절차 <span class="badge badge-mid">핵심지문 14개</span></h2>
+<div id="counter5" class="counter">0 / 14 완료</div>
+<div class="score-bar"><div class="bar"><div class="fill" id="fill5" style="width:0%;background:var(--ok)"></div></div></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">35.</span>
+<span class="q-text">종합부동산세의 과세기준일은 매년 ① <span class="blank">6월 1일</span> / ② 7월 1일이다.</span>
+<div class="answer"><span class="ans-label correct">정답: ①</span> 종부세 과세기준일 = <strong>6월 1일</strong></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">36.</span>
+<span class="q-text">납세의무자가 법인으로 보지 않는 단체인 경우 부동산 소재지 관할 세무서장은 해당 주택의 소재지 / ② <span class="blank">주소지</span>를 납세지로 한다.</span>
+<div class="answer"><span class="ans-label correct">정답: ①</span> 법인이 아닌 단체 → <strong>주택 소재지</strong> 관할 세무서장 / 소처지를 한다.</div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">37.</span>
+<span class="q-text">종합부동산세의 납세의무자가 비거주자인 개인으로서 국내사업장이 없고 국내 원천소득이 발생하지 아니하여 1주택을 소유한 경우 ① <span class="blank">주택 소재지</span> / ② 신고한 장소를 납세지로 한다.</span>
+<div class="answer"><span class="ans-label correct">정답: ①</span> 비거주자(사업장X+원천소득X) → <strong>주택 소재지</strong>가 납세지. 다만 주택 여러 곳이면 납부하겠다고 신고한 장소</div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">38.</span>
+<span class="q-text">관할 세무서장은 납부하여야 할 세액을 결정하여 해당 연도 ① <span class="blank">12/1~12/15</span> / ② 12/16~12/31까지 부과·징수한다.</span>
+<div class="answer"><span class="ans-label correct">정답: ①</span> 종부세 부과·징수 = <strong>12/1~12/15</strong></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">39.</span>
+<span class="q-text">관할 세무서장이 종합부동산세를 징수하려면 납세고지서에 주택 및 토지를 ① <span class="blank">구분</span> / ② 합산하여 과세표준과 세액을 기재하여 납부기간 개시 <span class="blank">5일 전</span>까지 발송하여야 한다.</span>
+<div class="answer"><span class="ans-label correct">정답: 구분, 5일 전</span> 주택·토지 <strong>구분</strong> 기재, 납부기간 개시 <strong>5일 전</strong>까지 발송</div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">40.</span>
+<span class="q-text">종합부동산세를 선택적 신고납부방식으로 납부하고자 하는 납세의무자는 해당 연도 ① 11/16~11/30 / ② <span class="blank">12/1~12/15</span>까지 관할 세무서장에게 신고하여야 한다.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 선택적 신고납부 = <strong>12/1~12/15</strong></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">41.</span>
+<span class="q-text">종합부동산세의 납세의무자가 선택에 따라 신고납부할 수 있으나, 신고를 함에 있어 납부 세액을 과소하게 신고한 경우 과소신고가산세가 ① <span class="blank">부과된다</span> / ② 부과되지 아니한다.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 종부세 선택적 신고 → 과소신고가산세 <strong>부과되지 않음</strong></div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">42.</span>
+<span class="q-text">종합부동산세로 납부해야 할 세액이 250만원 초과인 경우 관할 세무서장은 그 세액의 일부를 납부기한이 지난 날부터 ① 3개월 / ② <span class="blank">6개월</span> 이내에 분납하게 할 수 있다.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 종부세 분납 = <strong>6개월</strong> 이내 (250만원 초과 시)</div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">43.</span>
+<span class="q-text">관할 세무서장은 종합부동산세로 납부하여야 할 세액이 400만원인 경우 최대 ① <span class="blank">150만원</span> / ② 200만원의 세액을 납부기한이 지난 날부터 6개월 이내에 분납하게 할 수 있다.</span>
+<div class="answer"><span class="ans-label correct">정답: ①</span> 500만원 이하: 세액 - 250만원 = 분납액 → 400만원-250만원 = <strong>150만원</strong><br>500만원 초과: 세액의 50% 이하</div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">44.</span>
+<span class="q-text">관할 세무서장은 과세기준일 현재 1세대 1주택자가 아닌 경우 주택분 종합부동산세액의 납부유예를 허가할 수 ① 있다 / ② <span class="blank">없다</span>.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 납부유예 = <strong>1세대 1주택자만</strong> 가능, 과세기준일 3일 전까지 신청</div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">45.</span>
+<span class="q-text">관할 세무서장은 법령에 따른 주택분 종합부동산세의 납부유예 신청을 받은 경우 납부기한 ① 3일 전 / ② <span class="blank">만료일</span>까지 대통령령으로 정하는 바에 따라 납세의무자에게 납부유예 허가 여부를 통지하여야 한다.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 납부유예 허가 통지 = 납부기한 <strong>만료일</strong>까지</div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">46.</span>
+<span class="q-text">관할 세무서장은 주택분 종합부동산세의 납부가 유예된 납세의무자가 해당 주택을 타인에게 양도하거나 증여하는 경우에는 그 납부유예 허가를 ① 계속유지 / ② <span class="blank">취소</span>하여야 한다.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 양도·증여 시 → 납부유예 <strong>취소</strong> (+사망해도 납부유예 취소)</div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">47.</span>
+<span class="q-text">종합부동산세의 물납은 ① 허용된다 / ② <span class="blank">허용되지 않는다</span>.</span>
+<div class="answer"><span class="ans-label correct">정답: ②</span> 종부세 물납 = <strong>불가</strong> (재산세만 물납 가능!)</div>
+</div>
+
+<div class="stmt" onclick="toggleAnswer(this)">
+<span class="q-num">48.</span>
+<span class="q-text">납세자에게 부정행위가 없으며 특례제척기간에 해당하지 않는 경우, 원칙적으로 ① <span class="blank">납세의무 성립일</span> / ② 납부기한의 다음 날부터 5년이 지나면 종합부동산세를 부과할 수 없다.</span>
+<div class="answer"><span class="ans-label correct">정답: ①</span> 부과제척기간 기산일 = <strong>납세의무 성립일</strong>이 속하는 해의 다음날부터 5년</div>
+</div>
+</div>
+
+<!-- ===== Page 6: 간주임대료 ===== -->
+<div class="page" id="page6">
+<div class="section">
+<h2>💰 간주임대료 과세기준 <span class="badge badge-hot">필수암기</span></h2>
+<table>
+<tr><th>주택 수</th><th>보증금 기준</th><th>과세 여부</th></tr>
+<tr><td class="highlight-ok">1주택</td><td>—</td><td>과세 안함</td></tr>
+<tr><td class="highlight-warn">2주택<br>(기준시가 12억 초과)</td><td>합계 12억 이하</td><td>과세 안함</td></tr>
+<tr><td class="highlight-warn">2주택<br>(기준시가 12억 초과)</td><td class="highlight-err">합계 12억 초과</td><td class="highlight-err">과세</td></tr>
+<tr><td class="highlight-err">3주택 이상</td><td>합계 3억 이하</td><td>과세 안함</td></tr>
+<tr><td class="highlight-err">3주택 이상</td><td class="highlight-err">합계 3억 초과</td><td class="highlight-err">과세</td></tr>
+</table>
+<div class="memo-err memo">🚨 2주택 핵심: 기준시가 <strong>12억 초과</strong> 주택이어야 하고, 보증금 합계도 <strong>12억 초과</strong> 시 과세</div>
+<div class="memo">💡 1주택은 무조건 비과세! (고가주택이어도 간주임대료는 비과세)</div>
+</div>
+
+<div class="section">
+<h2>📊 분할납부 비교표</h2>
+<table>
+<tr><th>세목</th><th>기준금액</th><th>분납기한</th></tr>
+<tr><td>재산세</td><td class="highlight">250만원 초과</td><td class="highlight">3개월</td></tr>
+<tr><td>종부세</td><td class="highlight-warn">250만원 초과</td><td class="highlight-warn">6개월</td></tr>
+<tr><td>양도세</td><td class="highlight-err">1천만원 초과</td><td class="highlight-err">2개월</td></tr>
+</table>
+<div class="memo">💡 암기: 재산세 3 / 종부세 6 / 양도세 2 (개월)</div>
+</div>
+
+<div class="section">
+<h2>🔑 종부세 분납 계산</h2>
+<div class="vs-box">
+<div class="vs-item left">
+<div class="vs-label" style="color:var(--accent)">500만원 이하</div>
+<p style="font-size:.8em">세액 - 250만원 = 분납액<br>예) 400만원 → <strong>150만원</strong> 분납</p>
+</div>
+<div class="vs-item right">
+<div class="vs-label" style="color:var(--accent3)">500만원 초과</div>
+<p style="font-size:.8em">세액의 <strong>50% 이하</strong> 분납<br>예) 800만원 → <strong>400만원</strong> 분납</p>
+</div>
+</div>
+</div>
+
+<div class="section">
+<h2>⏰ 종부세 주요 기한 정리</h2>
+<table>
+<tr><th>항목</th><th>기한</th></tr>
+<tr><td>과세기준일</td><td class="highlight-err">6월 1일</td></tr>
+<tr><td>합산배제 신고</td><td>9/16~9/30</td></tr>
+<tr><td>공동명의 1주택 신청</td><td>9/16~9/30</td></tr>
+<tr><td>선택적 신고납부</td><td>12/1~12/15</td></tr>
+<tr><td class="highlight">부과·징수</td><td class="highlight-err">12/1~12/15</td></tr>
+<tr><td>납세고지서 발송</td><td>납부기간 개시 5일 전</td></tr>
+<tr><td>납부유예 신청</td><td>과세기준일 3일 전</td></tr>
+<tr><td>분납</td><td>납부기한 후 6개월 이내</td></tr>
+</table>
+</div>
+</div>
+
+<script>
+function lsGet(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function lsSet(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+
+function showPage(n){
+ document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active')});
+ document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
+ document.getElementById('page'+n).classList.add('active');
+ document.querySelectorAll('.tab')[n].classList.add('active');
+ window.scrollTo(0,0);
+}
+
+var pageCounts={};
+function toggleAnswer(el){
+ var ans=el.querySelector('.answer');
+ if(ans.classList.contains('show'))return;
+ ans.classList.add('show');
+ var page=el.closest('.page');
+ var pid=page.id.replace('page','');
+ if(!pageCounts[pid])pageCounts[pid]=0;
+ pageCounts[pid]++;
+ var total=page.querySelectorAll('.stmt').length;
+ var cEl=document.getElementById('counter'+pid);
+ var fEl=document.getElementById('fill'+pid);
+ if(cEl)cEl.textContent=pageCounts[pid]+' / '+total+' 완료';
+ if(fEl)fEl.style.width=Math.round(pageCounts[pid]/total*100)+'%';
+}
+
+window.addEventListener('load',function(){setTimeout(function(){
+ document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('visible')});
+},400)});
+</script>
+</body>
+</html>
