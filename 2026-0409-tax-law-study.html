@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>📊 부동산세법 핵심정리</title>
+<style>
+:root{--bg:#0f172a;--card:#1e293b;--card2:#334155;--accent:#38bdf8;--accent2:#818cf8;--accent3:#f472b6;--ok:#34d399;--warn:#fbbf24;--err:#f87171;--text:#f1f5f9;--text2:#94a3b8;--radius:14px;--shadow:0 4px 24px rgba(0,0,0,.3)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-text-size-adjust:100%}
+.header{background:linear-gradient(135deg,#1e3a5f,#0f172a);padding:20px 16px 12px;text-align:center;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(56,189,248,.2)}
+.header h1{font-size:1.3em;margin-bottom:4px}
+.header p{font-size:.78em;color:var(--text2)}
+.tabs{display:flex;gap:4px;overflow-x:auto;padding:10px 8px;background:var(--bg);position:sticky;top:60px;z-index:99;-webkit-overflow-scrolling:touch}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex-shrink:0;padding:8px 14px;border-radius:20px;background:var(--card);color:var(--text2);font-size:.78em;font-weight:600;border:none;cursor:pointer;white-space:nowrap;transition:.2s}
+.tab.active{background:var(--accent);color:#0f172a}
+.page{display:none;padding:12px 10px 100px;animation:fadeIn .3s}
+.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.section{background:var(--card);border-radius:var(--radius);padding:16px;margin-bottom:14px;box-shadow:var(--shadow)}
+.section h2{font-size:1em;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.section h3{font-size:.88em;color:var(--accent);margin:12px 0 8px}
+.badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.68em;font-weight:700}
+.badge-hot{background:var(--err);color:#fff}
+.badge-mid{background:var(--warn);color:#0f172a}
+.badge-info{background:var(--accent);color:#0f172a}
+table{width:100%;border-collapse:collapse;margin:8px 0;font-size:.8em}
+th{background:var(--card2);padding:8px 6px;text-align:center;font-weight:600;border:1px solid rgba(148,163,184,.15)}
+td{padding:7px 6px;border:1px solid rgba(148,163,184,.15);text-align:center}
+tr:nth-child(even){background:rgba(30,41,59,.5)}
+.highlight{color:var(--accent);font-weight:700}
+.highlight-warn{color:var(--warn);font-weight:700}
+.highlight-err{color:var(--err);font-weight:700}
+.highlight-ok{color:var(--ok);font-weight:700}
+.memo{background:rgba(56,189,248,.08);border-left:3px solid var(--accent);padding:10px 12px;border-radius:0 8px 8px 0;margin:8px 0;font-size:.82em;line-height:1.6}
+.memo-warn{background:rgba(251,191,36,.08);border-left-color:var(--warn)}
+.memo-err{background:rgba(248,113,113,.08);border-left-color:var(--err)}
+.vs-box{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}
+.vs-item{background:var(--card2);border-radius:10px;padding:10px;font-size:.8em;line-height:1.5}
+.vs-item.left{border-top:3px solid var(--accent)}
+.vs-item.right{border-top:3px solid var(--accent3)}
+.vs-label{font-weight:700;font-size:.75em;margin-bottom:4px}
+.timeline{position:relative;padding-left:24px;margin:10px 0}
+.timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:var(--accent)}
+.tl-item{position:relative;margin-bottom:12px;padding-left:8px}
+.tl-item::before{content:'';position:absolute;left:-20px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--accent);border:2px solid var(--bg)}
+.tl-title{font-weight:700;font-size:.82em;color:var(--accent)}
+.tl-desc{font-size:.78em;color:var(--text2);margin-top:2px;line-height:1.5}
+.quiz-card{background:var(--card);border-radius:var(--radius);padding:16px;margin-bottom:12px;border-left:4px solid var(--accent2)}
+.quiz-q{font-size:.88em;font-weight:600;margin-bottom:10px;line-height:1.5}
+.quiz-q .q-num{color:var(--accent2);margin-right:4px}
+.quiz-opts{display:flex;gap:8px;flex-wrap:wrap}
+.quiz-btn{padding:10px 20px;border-radius:10px;border:2px solid var(--card2);background:var(--card2);color:var(--text);font-size:.85em;font-weight:700;cursor:pointer;transition:.2s;min-width:60px;text-align:center}
+.quiz-btn:active{transform:scale(.95)}
+.quiz-btn.correct{background:rgba(52,211,153,.2);border-color:var(--ok);color:var(--ok)}
+.quiz-btn.wrong{background:rgba(248,113,113,.15);border-color:var(--err);color:var(--err)}
+.quiz-explain{display:none;margin-top:10px;padding:10px;background:rgba(129,140,248,.08);border-radius:8px;font-size:.8em;line-height:1.5;color:var(--text2)}
+.quiz-explain.show{display:block}
+.num-box{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:28px;padding:0 8px;border-radius:8px;font-weight:700;font-size:.82em}
+.num-blue{background:rgba(56,189,248,.15);color:var(--accent)}
+.num-pink{background:rgba(244,114,182,.15);color:var(--accent3)}
+.num-yellow{background:rgba(251,191,36,.15);color:var(--warn)}
+.num-green{background:rgba(52,211,153,.15);color:var(--ok)}
+.flow{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin:8px 0;font-size:.8em}
+.flow-step{background:var(--card2);padding:6px 10px;border-radius:8px;font-weight:600}
+.flow-arrow{color:var(--accent);font-weight:700}
+ul.checklist{list-style:none;margin:6px 0;font-size:.82em}
+ul.checklist li{padding:4px 0;padding-left:20px;position:relative;line-height:1.5}
+ul.checklist li::before{content:'✓';position:absolute;left:0;color:var(--ok);font-weight:700}
+ul.checklist li.x::before{content:'✗';color:var(--err)}
+.progress-bar{width:100%;height:6px;background:var(--card2);border-radius:3px;margin:8px 0}
+.progress-fill{height:100%;border-radius:3px;transition:width .5s}
+.score-display{text-align:center;padding:20px;font-size:1.2em;font-weight:700}
+</style>
+</head>
+<body>
+<div class="header">
+<h1>📊 부동산세법 핵심정리</h1>
+<p>하헌진 필수서 기반 · 출제빈도 TOP 핵심만</p>
+</div>
+
+<div class="tabs" id="tabs">
+<button class="tab active" onclick="showPage(0)">📋 조세총론</button>
+<button class="tab" onclick="showPage(1)">🏠 취득세</button>
+<button class="tab" onclick="showPage(2)">🏢 재산세</button>
+<button class="tab" onclick="showPage(3)">🏗 종부세</button>
+<button class="tab" onclick="showPage(4)">💰 양도세</button>
+<button class="tab" onclick="showPage(5)">🧠 OX퀴즈</button>
+</div>
+
+<!-- ===== Page 0: 조세총론 ===== -->
+<div class="page active" id="page0">
+<div class="section">
+<h2>📌 물납과 분할납부 <span class="badge badge-hot">매년출제</span></h2>
+<table>
+<tr><th>구분</th><th>물납</th><th>분할납부</th></tr>
+<tr><td>취득세</td><td>✗</td><td>✗</td></tr>
+<tr><td>등록면허세</td><td>✗</td><td>✗</td></tr>
+<tr><td class="highlight">재산세</td><td class="highlight-ok">O</td><td class="highlight-ok">O</td></tr>
+<tr><td>종합부동산세</td><td>✗</td><td class="highlight-ok">O</td></tr>
+<tr><td>종합소득세</td><td>✗</td><td class="highlight-ok">O</td></tr>
+<tr><td>양도소득세</td><td>✗</td><td class="highlight-ok">O</td></tr>
+</table>
+<div class="memo">💡 <strong>물납은 재산세만!</strong> 납부세액 <span class="highlight-err">1천만원 초과</span> 시 관할구역 내 부동산으로 물납 가능</div>
+<div class="memo-warn memo">⚠️ 분할납부 기준: 재산세 <span class="highlight-warn">250만원 초과</span> → 3개월 이내 / 종부세 <span class="highlight-warn">250만원 초과</span> → 6개월 이내 / 양도세 <span class="highlight-warn">1천만원 초과</span> → 2개월 이내</div>
+</div>
+
+<div class="section">
+<h2>⏰ 납세의무 성립시기 <span class="badge badge-hot">매년출제</span></h2>
+<table>
+<tr><th>세목</th><th>성립시기</th></tr>
+<tr><td>취득세</td><td>과세물건을 <span class="highlight">취득하는 때</span></td></tr>
+<tr><td>등록면허세</td><td>등기·등록<span class="highlight">하는 때</span></td></tr>
+<tr><td>재산세</td><td>과세기준일 <span class="highlight-err">6월 1일</span></td></tr>
+<tr><td>종합부동산세</td><td>과세기준일 <span class="highlight-err">6월 1일</span></td></tr>
+<tr><td>소득세(원칙)</td><td>과세기간이 <span class="highlight">끝나는 때</span></td></tr>
+<tr><td>소득세(예정신고)</td><td>금액 발생한 <span class="highlight-warn">달의 말일</span></td></tr>
+<tr><td>지방교육세</td><td>본세 납세의무 <span class="highlight">성립하는 때</span></td></tr>
+<tr><td>인지세</td><td>과세문서 <span class="highlight">작성한 때</span></td></tr>
+</table>
+<div class="memo-err memo">🚨 함정: 예정신고 소득세 성립시기 ≠ 과세기간 끝나는 때 → <strong>금액 발생한 달의 말일</strong></div>
+</div>
+
+<div class="section">
+<h2>✅ 납세의무 확정 방법</h2>
+<div class="vs-box">
+<div class="vs-item left">
+<div class="vs-label" style="color:var(--accent)">🔵 신고납부 (납세자가 확정)</div>
+<p style="font-size:.8em">취득세, 등록면허세</p>
+</div>
+<div class="vs-item right">
+<div class="vs-label" style="color:var(--accent3)">🔴 보통징수 (과세관청 결정)</div>
+<p style="font-size:.8em">재산세</p>
+</div>
+</div>
+<div class="memo">💡 종부세: 관할세무서장이 <strong>결정</strong>하여 12/1~12/15 부과징수 (선택적 신고 가능)<br>양도소득세: 원칙 <strong>신고</strong>, 예외 결정</div>
+</div>
+
+<div class="section">
+<h2>📅 제척기간·소멸시효 <span class="badge badge-mid">자주출제</span></h2>
+<h3>부과 제척기간</h3>
+<table>
+<tr><th></th><th>사기·부정</th><th>무신고</th><th>그 밖</th></tr>
+<tr><td class="highlight">지방세</td><td class="highlight-err">10년</td><td>7년</td><td>5년</td></tr>
+<tr><td class="highlight">국세</td><td class="highlight-err">10년</td><td>7년</td><td>5년</td></tr>
+</table>
+<div class="memo">💡 지방세 10년: 상속·증여·명의신탁·과점주주 + 사기부정</div>
+<h3>징수권 소멸시효</h3>
+<table>
+<tr><th></th><th>5천만원 이상(지방세)<br>5억원 이상(국세)</th><th>그 외</th></tr>
+<tr><td>기간</td><td class="highlight-err">10년</td><td>5년</td></tr>
+</table>
+</div>
+
+<div class="section">
+<h2>💸 부가세 연결 <span class="badge badge-mid">자주출제</span></h2>
+<table>
+<tr><th>본세</th><th>부가세(납부세액)</th><th>부가세(감면세액)</th></tr>
+<tr><td>취득세</td><td>지방교육세 <span class="num-box num-blue">20%</span></td><td>농특세 <span class="num-box num-yellow">20%</span></td></tr>
+<tr><td>등록면허세</td><td>지방교육세 <span class="num-box num-blue">20%</span></td><td>농특세 <span class="num-box num-yellow">20%</span></td></tr>
+<tr><td>재산세</td><td>지방교육세 <span class="num-box num-blue">20%</span></td><td>—</td></tr>
+<tr><td>종부세</td><td>농특세 <span class="num-box num-yellow">20%</span></td><td>—</td></tr>
+</table>
+<div class="memo-err memo">🚨 재산세 부가 = <strong>지방교육세</strong> / 종부세 부가 = <strong>농특세</strong> (바꿔서 출제!)</div>
+</div>
+</div>
+
+<!-- ===== Page 1: 취득세 ===== -->
+<div class="page" id="page1">
+<div class="section">
+<h2>📌 취득세 세율 총정리 <span class="badge badge-hot">매년 3~4문제</span></h2>
+<h3>유상승계취득 (표준세율)</h3>
+<table>
+<tr><th>구분</th><th>세율</th></tr>
+<tr><td>부동산(원칙)</td><td><span class="highlight">1천분의 40</span> (4%)</td></tr>
+<tr><td>농지</td><td><span class="highlight-ok">1천분의 30</span> (3%)</td></tr>
+<tr><td>유상 주택 (6억이하·1주택)</td><td><span class="highlight-ok">1천분의 10</span> (1%)</td></tr>
+<tr><td>유상 주택 (6억초과~9억이하)</td><td>1천분의 10~30</td></tr>
+<tr><td>유상 주택 (9억초과)</td><td><span class="highlight-warn">1천분의 30</span> (3%)</td></tr>
+</table>
+<h3>무상취득</h3>
+<table>
+<tr><th>구분</th><th>세율</th></tr>
+<tr><td>상속(원칙)</td><td><span class="highlight">1천분의 28</span> (2.8%)</td></tr>
+<tr><td>상속(농지)</td><td><span class="highlight-ok">1천분의 23</span> (2.3%)</td></tr>
+<tr><td>증여(원칙)</td><td><span class="highlight-err">1천분의 35</span> (3.5%)</td></tr>
+<tr><td>증여(비영리)</td><td><span class="highlight">1천분의 28</span> (2.8%)</td></tr>
+</table>
+<h3>원시취득</h3>
+<table>
+<tr><th>구분</th><th>세율</th></tr>
+<tr><td>원시취득(원칙)</td><td><span class="highlight">1천분의 28</span> (2.8%)</td></tr>
+</table>
+<div class="memo">💡 암기: 유상 4% / 상속 2.8% / 증여 3.5% / 원시 2.8% / 농지 -1%</div>
+</div>
+
+<div class="section">
+<h2>🕐 취득의 시기 <span class="badge badge-hot">매년출제</span></h2>
+<table>
+<tr><th>취득유형</th><th>취득시기</th></tr>
+<tr><td>유상(매매)</td><td><span class="highlight">잔금지급일</span> (등기일 중 빠른 날)</td></tr>
+<tr><td>상속</td><td><span class="highlight">상속개시일</span></td></tr>
+<tr><td>증여</td><td>등기접수일 (계약일 X)</td></tr>
+<tr><td>연부취득</td><td>각 <span class="highlight-warn">연부금 지급일</span></td></tr>
+<tr><td>매립·간척</td><td>공사준공인가일 (사용시→사용일)</td></tr>
+<tr><td>지목변경</td><td>사실상 변경일 (불분명→공부상 변경일)</td></tr>
+<tr><td>점유취득(민법245)</td><td><span class="highlight-err">등기일</span></td></tr>
+</table>
+<div class="memo-err memo">🚨 증여 취득시기 = <strong>등기접수일</strong> (계약일 아님!) / 점유취득 = <strong>등기일</strong> (점유개시일 아님!)</div>
+</div>
+
+<div class="section">
+<h2>📊 과세표준</h2>
+<table>
+<tr><th>취득유형</th><th>과세표준</th></tr>
+<tr><td>유상승계</td><td><span class="highlight">사실상취득가격</span></td></tr>
+<tr><td>무상(증여)</td><td><span class="highlight-warn">시가인정액</span></td></tr>
+<tr><td>무상(상속)</td><td><span class="highlight-err">시가표준액</span></td></tr>
+<tr><td>원시취득·개수</td><td>사실상취득가격 (확인불가→시가표준액)</td></tr>
+</table>
+<div class="memo-warn memo">⚠️ 부당행위계산: 시가인정액 (불가시 시가표준액)으로 결정 가능</div>
+</div>
+
+<div class="section">
+<h2>🚫 비과세 <span class="badge badge-mid">자주출제</span></h2>
+<ul class="checklist">
+<li>신탁→신탁종료→위탁자에게 이전</li>
+<li>환매권 행사에 의한 매수</li>
+<li>공유물·합유물 분할 (지분 초과X)</li>
+<li>건축물 이전 (가액 초과X)</li>
+<li>국가귀속·기부채납 조건 취득</li>
+<li class="x">부담부증여의 채무액 해당분 → 유상취득 (비과세X)</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>📝 납세절차</h2>
+<div class="flow">
+<span class="flow-step">취득일로부터</span>
+<span class="flow-arrow">→</span>
+<span class="flow-step highlight-err">60일 이내</span>
+<span class="flow-arrow">→</span>
+<span class="flow-step">신고납부</span>
+</div>
+<div class="memo">상속: <span class="highlight-warn">상속개시일이 속하는 달의 말일부터 6개월</span> 이내<br>
+납세지: <span class="highlight">취득 당시 물건 소재지</span></div>
+</div>
+</div>
+
+<!-- ===== Page 2: 재산세 ===== -->
+<div class="page" id="page2">
+<div class="section">
+<h2>👤 납세의무자 <span class="badge badge-hot">매년출제</span></h2>
+<table>
+<tr><th>구분</th><th>납세의무자</th></tr>
+<tr><td>원칙</td><td>6/1 현재 <span class="highlight">사실상 소유자</span></td></tr>
+<tr><td>공유재산</td><td>지분권자 (표시없으면 균등)</td></tr>
+<tr><td>주택(건물·토지 소유자 다름)</td><td>시가표준액 비율로 <span class="highlight-warn">안분</span></td></tr>
+<tr><td>소유권변동 미신고</td><td><span class="highlight-err">공부상 소유자</span></td></tr>
+<tr><td>상속등기X+신고X</td><td>주된 상속자 (지분최고→나이최고)</td></tr>
+<tr><td>신탁재산</td><td><span class="highlight">위탁자</span></td></tr>
+<tr><td>체비지·보류지</td><td>사업시행자</td></tr>
+</table>
+</div>
+
+<div class="section">
+<h2>🏘 과세대상 구분</h2>
+<h3>토지 과세방법</h3>
+<table>
+<tr><th>구분</th><th>내용</th></tr>
+<tr><td class="highlight">종합합산</td><td>별도·분리 제외한 나머지 전부</td></tr>
+<tr><td class="highlight-warn">별도합산</td><td>일반 영업용 건축물 부속토지</td></tr>
+<tr><td class="highlight-ok">분리과세</td><td>전답임·골프장·고급오락장 등</td></tr>
+</table>
+<div class="memo-warn memo">⚠️ 주택 부속토지 경계 불명확 → 바닥면적의 <span class="highlight-err">10배</span><br>
+다가구주택 = 1가구별 1구의 주택 (부속토지도 건물면적 비율로 안분)</div>
+</div>
+
+<div class="section">
+<h2>💲 과세표준·세율</h2>
+<div class="memo">과세표준 = 시가표준액 × <span class="highlight">공정시장가액비율</span> (60%)</div>
+<h3>주택 (누진세율)</h3>
+<table>
+<tr><th>과세표준</th><th>세율</th></tr>
+<tr><td>6천만원 이하</td><td>1천분의 1</td></tr>
+<tr><td>6천만~1.5억</td><td>1천분의 1.5</td></tr>
+<tr><td>1.5억~3억</td><td>1천분의 2.5</td></tr>
+<tr><td>3억 초과</td><td>1천분의 4</td></tr>
+</table>
+<h3>건축물·토지</h3>
+<table>
+<tr><th>구분</th><th>세율</th></tr>
+<tr><td>건축물(원칙)</td><td>1천분의 2.5 (비례)</td></tr>
+<tr><td>종합합산 토지</td><td>1천분의 2~5 (누진)</td></tr>
+<tr><td>별도합산 토지</td><td>1천분의 2~4 (누진)</td></tr>
+</table>
+</div>
+
+<div class="section">
+<h2>📅 납기·납세지</h2>
+<table>
+<tr><th>대상</th><th>납기</th></tr>
+<tr><td>건축물</td><td>7/16~7/31</td></tr>
+<tr><td>주택 1기분</td><td>7/16~7/31</td></tr>
+<tr><td>토지</td><td><span class="highlight-err">9/16~9/30</span></td></tr>
+<tr><td>주택 2기분</td><td><span class="highlight-err">9/16~9/30</span></td></tr>
+</table>
+<div class="memo">💡 주택 해당연도 세액 <span class="highlight-warn">20만원 이하</span> → 7월에 한꺼번에 부과 가능<br>
+납세지 = <span class="highlight">물건 소재지</span> (소유자 주소지 X!)</div>
+<div class="memo-err memo">🚨 납세고지서 = 납기개시 <span class="highlight-err">10일 전</span>까지 발급</div>
+</div>
+</div>
+
+<!-- ===== Page 3: 종부세 ===== -->
+<div class="page" id="page3">
+<div class="section">
+<h2>🎯 공제금액 <span class="badge badge-hot">매년출제</span></h2>
+<table>
+<tr><th>구분</th><th>공제금액</th></tr>
+<tr><td>주택(원칙)</td><td><span class="highlight-err">9억원</span></td></tr>
+<tr><td class="highlight">1세대 1주택(단독소유+거주자)</td><td><span class="highlight-ok">12억원</span></td></tr>
+<tr><td>종합합산 토지</td><td>5억원</td></tr>
+<tr><td>별도합산 토지</td><td>80억원</td></tr>
+</table>
+<div class="memo">과세표준 = (공시가격 합산 - 공제금액) × 공정시장가액비율 <span class="highlight">60%</span></div>
+</div>
+
+<div class="section">
+<h2>👴 1세대 1주택 세액공제 <span class="badge badge-mid">자주출제</span></h2>
+<h3>연령별 (만60세 이상)</h3>
+<table>
+<tr><th>연령</th><th>공제율</th></tr>
+<tr><td>60세↑~65세↓</td><td>20%</td></tr>
+<tr><td>65세↑~70세↓</td><td>30%</td></tr>
+<tr><td>70세↑</td><td><span class="highlight-ok">40%</span></td></tr>
+</table>
+<h3>보유기간별 (5년 이상)</h3>
+<table>
+<tr><th>보유기간</th><th>공제율</th></tr>
+<tr><td>5년↑~10년↓</td><td>20%</td></tr>
+<tr><td>10년↑~15년↓</td><td>40%</td></tr>
+<tr><td>15년↑</td><td><span class="highlight-ok">50%</span></td></tr>
+</table>
+<div class="memo">💡 연령+보유기간 <span class="highlight">중복적용</span> 가능! 최대 합산 <span class="highlight-err">80%</span> 한도</div>
+</div>
+
+<div class="section">
+<h2>🏠 과세대상 / 비과세</h2>
+<div class="memo">종부세 과세 = <span class="highlight">주택 + 종합합산토지 + 별도합산토지</span><br>
+❌ 건축물(상가 등)은 종부세 대상 아님!</div>
+<h3>합산배제(비과세) 주택</h3>
+<ul class="checklist">
+<li>등록문화유산</li>
+<li>가정어린이집 주택</li>
+<li>사원용주택, 기숙사</li>
+<li>미분양주택 (5년 한도)</li>
+<li class="x">일반 다주택은 합산배제 불가</li>
+</ul>
+<div class="memo">합산배제 신고: 해당 연도 <span class="highlight-warn">9/16~9/30</span> 관할 세무서장에게</div>
+</div>
+
+<div class="section">
+<h2>📝 절차</h2>
+<div class="flow">
+<span class="flow-step">세무서장 결정</span>
+<span class="flow-arrow">→</span>
+<span class="flow-step highlight-err">12/1~12/15</span>
+<span class="flow-arrow">→</span>
+<span class="flow-step">부과·징수</span>
+</div>
+<div class="memo">선택적 신고: 11/16~11/30 신고 가능 (의무X)<br>
+동거봉양·혼인 합가 → 각각 1세대로 보는 기간: <span class="highlight-err">10년</span></div>
+</div>
+</div>
+
+<!-- ===== Page 4: 양도소득세 ===== -->
+<div class="page" id="page4">
+<div class="section">
+<h2>🏠 1세대 1주택 비과세 <span class="badge badge-hot">매년출제</span></h2>
+<div class="memo">요건: <span class="highlight">2년 이상 보유</span> (조정대상지역 취득: +2년 거주)</div>
+<h3>주의사항</h3>
+<ul class="checklist">
+<li>대지와 건물 소유자 다른 경우(동일세대) → 1세대1주택 OK</li>
+<li>부부 세대 분리해도 → <span class="highlight-err">동일세대</span>로 봄</li>
+<li class="x">공부상 주택을 영업용으로 사용 후 양도 → 비과세 불가</li>
+<li class="x">주민등록 vs 사실 다르면 → <span class="highlight-err">사실상 현황</span> 기준</li>
+</ul>
+<div class="memo-warn memo">⚠️ 고가주택(12억원 초과) → 초과분만 과세<br>
+도시 밖 주택 부속토지: 주택정착면적의 <span class="highlight-err">10배</span> 이내</div>
+</div>
+
+<div class="section">
+<h2>🕐 양도·취득 시기</h2>
+<table>
+<tr><th>구분</th><th>양도/취득 시기</th></tr>
+<tr><td>원칙(유상)</td><td><span class="highlight">대금 청산일</span> (등기일 중 빠른 날)</td></tr>
+<tr><td>상속</td><td>상속개시일</td></tr>
+<tr><td>증여</td><td><span class="highlight-err">증여등기접수일</span></td></tr>
+<tr><td>점유취득(민법245)</td><td><span class="highlight-err">등기일</span></td></tr>
+<tr><td>환지처분</td><td>환지처분 공고일의 <span class="highlight-warn">다음 날</span></td></tr>
+<tr><td>목적물 미완성·미확정</td><td>대금 청산일</td></tr>
+</table>
+</div>
+
+<div class="section">
+<h2>📊 장기보유특별공제 <span class="badge badge-hot">매년출제</span></h2>
+<h3>일반 (3년 이상)</h3>
+<table>
+<tr><th>보유기간</th><th>공제율</th></tr>
+<tr><td>3년↑~4년↓</td><td>6%</td></tr>
+<tr><td>4년↑~5년↓</td><td>8%</td></tr>
+<tr><td>…(2년마다 +2%)</td><td>…</td></tr>
+<tr><td>15년↑</td><td><span class="highlight-ok">30%</span> (한도)</td></tr>
+</table>
+<h3>1세대 1주택 (보유+거주)</h3>
+<table>
+<tr><th></th><th>보유기간</th><th>거주기간</th></tr>
+<tr><td>3년↑</td><td>12%</td><td>12%</td></tr>
+<tr><td>…(1년마다 +4%)</td><td>…</td><td>…</td></tr>
+<tr><td>10년↑</td><td><span class="highlight-ok">40%</span></td><td><span class="highlight-ok">40%</span></td></tr>
+</table>
+<div class="memo">1세대1주택 최대 = 보유 40% + 거주 40% = <span class="highlight-err">80%</span></div>
+</div>
+
+<div class="section">
+<h2>🧮 양도소득세 세율</h2>
+<table>
+<tr><th>과세표준</th><th>세율</th></tr>
+<tr><td>1,400만원 이하</td><td>6%</td></tr>
+<tr><td>~5,000만원</td><td>15%</td></tr>
+<tr><td>~8,800만원</td><td>24%</td></tr>
+<tr><td>~1.5억</td><td>35%</td></tr>
+<tr><td>~3억</td><td>38%</td></tr>
+<tr><td>~5억</td><td>40%</td></tr>
+<tr><td>~10억</td><td>42%</td></tr>
+<tr><td>10억 초과</td><td><span class="highlight-err">45%</span></td></tr>
+</table>
+<div class="memo-err memo">🚨 미등기양도: <span class="highlight-err">70%</span> / 1년 미만 보유: <span class="highlight-err">45%</span>(주택50%) / 분양권 50%</div>
+</div>
+
+<div class="section">
+<h2>📝 신고·납부</h2>
+<div class="flow">
+<span class="flow-step">양도일이 속하는 달의</span>
+<span class="flow-arrow">→</span>
+<span class="flow-step highlight-err">말일부터 2개월</span>
+<span class="flow-arrow">→</span>
+<span class="flow-step">예정신고</span>
+</div>
+<div class="memo">확정신고: 다음 해 <span class="highlight-warn">5/1~5/31</span><br>
+분할납부: 납부세액 <span class="highlight-err">1천만원 초과</span> → 2개월 이내</div>
+</div>
+</div>
+
+<!-- ===== Page 5: OX퀴즈 ===== -->
+<div class="page" id="page5">
+<div class="section">
+<h2>🧠 OX퀴즈 <span class="badge badge-info">기출 핵심 15문제</span></h2>
+<p style="font-size:.78em;color:var(--text2)">클릭하면 정답이 나와요!</p>
+<div id="quizScore" class="score-display" style="display:none"></div>
+<div class="progress-bar"><div class="progress-fill" id="quizProgress" style="width:0%;background:var(--accent)"></div></div>
+</div>
+
+<div class="quiz-card" data-answer="O">
+<div class="quiz-q"><span class="q-num">Q1.</span> 재산세 납부세액이 1천만원을 초과하는 경우 관할구역 내 부동산으로 물납을 허가할 수 있다.</div>
+<div class="quiz-opts">
+<button class="quiz-btn" onclick="checkAnswer(this,'O')">⭕ O</button>
+<button class="quiz-btn" onclick="checkAnswer(this,'X')">❌ X</button>
+</div>
+<div class="quiz-explain">⭕ 정답: O — 재산세만 물납 가능, 1천만원 초과 시 관할구역 내 부동산에 한해 허가</div>
+</div>
+
+<div class="quiz-card" data-answer="X">
+<div class="quiz-q"><span class="q-num">Q2.</span> 종합부동산세는 물납이 허용된다.</div>
+<div class="quiz-opts">
+<button class="quiz-btn" onclick="checkAnswer(this,'O')">⭕ O</button>
+<button class="quiz-btn" onclick="checkAnswer(this,'X')">❌ X</button>
+</div>
+<div class="quiz-explain">❌ 정답: X — 물납은 재산세만 가능! 종부세는 분할납부만 가능</div>
+</div>
+
+<div class="quiz-card" data-answer="X">
+<div class="quiz-q"><span class="q-num">Q3.</span> 예정신고하는 소득세의 납세의무 성립시기는 과세기간이 끝나는 때이다.</div>
+<div class="quiz-opts">
+<button class="quiz-btn" onclick="checkAnswer(this,'O')">⭕ O</button>
+<button class="quiz-btn" onclick="checkAnswer(this,'X')">❌ X</button>
+</div>
+<div class="quiz-explain">❌ 정답: X — 예정신고 소득세는 '과세표준이 되는 금액이 발생한 달의 말일'이 성립시기</div>
+</div>
+
+<div class="quiz-card" data-answer="X">
+<div class="quiz-q"><span class="q-num">Q4.</span> 취득세는 원칙적으로 보통징수 방법에 의한다.</div>
+<div class="quiz-opts">
+<button class="quiz-btn" onclick="checkAnswer(this,'O')">⭕ O</button>
+<button class="quiz-btn" onclick="checkAnswer(this,'X')">❌ X</button>
+</div>
+<div class="quiz-explain">❌ 정답: X — 취득세는 신고납부가 원칙 (보통징수는 재산세)</div>
+</div>
+
+<div class="quiz-card" data-answer="X">
+<div class="quiz-q"><span class="q-num">Q5.</span> 증여를 원인으로 취득한 부동산의 취득시기는 증여계약일이다.</div>
+<div class="quiz-opts">
+<button class="quiz-btn" onclick="checkAnswer(this,'O')">⭕ O</button>
+<button class="quiz-btn" onclick="checkAnswer(this,'X')">❌ X</button>
+</div>
+<div class="quiz-explain">❌ 정답: X — 증여는 '등기접수일'이 취득시기 (계약일 아님!)</div>
+</div>
+
+<div class="quiz-card" data-answer="X">
+<div class="quiz-q"><span class="q-num">Q6.</span> 상속으로 인한 취득세의 과세표준은 시가인정액이다.</div>
+<div class="quiz-opts">
+<button class="quiz-btn" onclick="checkAnswer(this,'O')">⭕ O</button>
+<button class="quiz-btn" onclick="checkAnswer(this,'X')">❌ X</button>
+</div>
+<div class="quiz-explain">❌ 정답: X — 상속은 시가표준액 (증여가 시가인정액)</div>
+</div>
+
+<div class="quiz-card" data-answer="X">
+<div class="quiz-q"><span class="q-num">Q7.</span> 재산세의 납세지는 건축물 소유자의 주소지를 관할하는 지방자치단체이다.</div>
+<div class="quiz-opts">
+<button class="quiz-btn" onclick="checkAnswer(this,'O')">⭕ O</button>
+<button class="quiz-btn" onclick="checkAnswer(this,'X')">❌ X</button>
+</div>
+<div class="quiz-explain">❌ 정답: X — 재산세 납세지는 물건 소재지 (소유자 주소지 아님!)</div>
+</div>
+
+<div class="quiz-card" data-answer="O">
+<div class="quiz-q"><span class="q-num">Q8.</span> 종합부동산세 1세대 1주택자의 연령별·보유기간별 세액공제 합산 한도는 80%이다.</div>
+<div class="quiz-opts">
+<button class="quiz-btn" onclick="checkAnswer(this,'O')">⭕ O</button>
+<button class="quiz-btn" onclick="checkAnswer(this,'X')">❌ X</button>
+</div>
+<div class="quiz-explain">⭕ 정답: O — 연령 최대40% + 보유 최대50% = 중복적용 가능, 합산 한도 80%</div>
+</div>
+
+<div class="quiz-card" data-answer="X">
+<div class="quiz-q"><span class="q-num">Q9.</span> 재산세에 부가되는 세목은 농어촌특별세이다.</div>
+<div class="quiz-opts">
+<button class="quiz-btn" onclick="checkAnswer(this,'O')">⭕ O</button>
+<button class="quiz-btn" onclick="checkAnswer(this,'X')">❌ X</button>
+</div>
+<div class="quiz-explain">❌ 정답: X — 재산세 부가 = 지방교육세! (종부세 부가 = 농특세)</div>
+</div>
+
+<div class="quiz-card" data-answer="X">
+<div class="quiz-q"><span class="q-num">Q10.</span> 양도소득세 예정신고 기한은 양도일이 속하는 달의 말일부터 3개월 이내이다.</div>
+<div class="quiz-opts">
+<button class="quiz-btn" onclick="checkAnswer(this,'O')">⭕ O</button>
+<button class="quiz-btn" onclick="checkAnswer(this,'X')">❌ X</button>
+</div>
+<div class="quiz-explain">❌ 정답: X — 양도일이 속하는 달의 말일부터 2개월 이내</div>
+</div>
+
+<div class="quiz-card" data-answer="X">
+<div class="quiz-q"><span class="q-num">Q11.</span> 부부가 각각 세대를 달리 구성하면 양도소득세 1세대 1주택 판정 시 별개 세대로 본다.</div>
+<div class="quiz-opts">
+<button class="quiz-btn" onclick="checkAnswer(this,'O')">⭕ O</button>
+<button class="quiz-btn" onclick="checkAnswer(this,'X')">❌ X</button>
+</div>
+<div class="quiz-explain">❌ 정답: X — 부부는 세대 분리해도 동일 세대로 봄</div>
+</div>
+
+<div class="quiz-card" data-answer="O">
+<div class="quiz-q"><span class="q-num">Q12.</span> 재산세는 관할 지방자치단체의 장이 세액을 산정하여 보통징수의 방법으로 부과·징수한다.</div>
+<div class="quiz-opts">
+<button class="quiz-btn" onclick="checkAnswer(this,'O')">⭕ O</button>
+<button class="quiz-btn" onclick="checkAnswer(this,'X')">❌ X</button>
+</div>
+<div class="quiz-explain">⭕ 정답: O — 재산세는 보통징수 (과세관청이 결정)</div>
+</div>
+
+<div class="quiz-card" data-answer="O">
+<div class="quiz-q"><span class="q-num">Q13.</span> 미등기양도 자산의 양도소득세 세율은 70%이다.</div>
+<div class="quiz-opts">
+<button class="quiz-btn" onclick="checkAnswer(this,'O')">⭕ O</button>
+<button class="quiz-btn" onclick="checkAnswer(this,'X')">❌ X</button>
+</div>
+<div class="quiz-explain">⭕ 정답: O — 미등기양도: 70% 단일세율 적용</div>
+</div>
+
+<div class="quiz-card" data-answer="X">
+<div class="quiz-q"><span class="q-num">Q14.</span> 종합부동산세는 매년 11월 1일부터 11월 15일까지 부과·징수한다.</div>
+<div class="quiz-opts">
+<button class="quiz-btn" onclick="checkAnswer(this,'O')">⭕ O</button>
+<button class="quiz-btn" onclick="checkAnswer(this,'X')">❌ X</button>
+</div>
+<div class="quiz-explain">❌ 정답: X — 종부세 부과징수 기간은 12/1~12/15 (11월은 선택적 신고기간)</div>
+</div>
+
+<div class="quiz-card" data-answer="X">
+<div class="quiz-q"><span class="q-num">Q15.</span> 지방세 무신고 시 부과 제척기간은 5년이다.</div>
+<div class="quiz-opts">
+<button class="quiz-btn" onclick="checkAnswer(this,'O')">⭕ O</button>
+<button class="quiz-btn" onclick="checkAnswer(this,'X')">❌ X</button>
+</div>
+<div class="quiz-explain">❌ 정답: X — 무신고는 7년 (5년은 '그 밖의 경우')</div>
+</div>
+</div>
+
+<script>
+function lsGet(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function lsSet(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+
+function showPage(n){
+ document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active')});
+ document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
+ document.getElementById('page'+n).classList.add('active');
+ document.querySelectorAll('.tab')[n].classList.add('active');
+ window.scrollTo(0,0);
+}
+
+var answered=0, correct=0, total=15;
+function checkAnswer(btn,choice){
+ var card=btn.closest('.quiz-card');
+ if(card.classList.contains('answered'))return;
+ card.classList.add('answered');
+ var answer=card.getAttribute('data-answer');
+ var btns=card.querySelectorAll('.quiz-btn');
+ answered++;
+ if(choice===answer){
+  btn.classList.add('correct');
+  correct++;
+ } else {
+  btn.classList.add('wrong');
+  btns.forEach(function(b){
+   if((answer==='O'&&b.textContent.includes('O'))||(answer==='X'&&b.textContent.includes('X')))b.classList.add('correct');
+  });
+ }
+ card.querySelector('.quiz-explain').classList.add('show');
+ var pct=Math.round((answered/total)*100);
+ document.getElementById('quizProgress').style.width=pct+'%';
+ if(answered===total){
+  var el=document.getElementById('quizScore');
+  el.style.display='block';
+  el.innerHTML='🎯 '+correct+' / '+total+' ('+Math.round(correct/total*100)+'%)';
+  el.style.color=correct>=12?'var(--ok)':correct>=8?'var(--warn)':'var(--err)';
+ }
+}
+
+window.addEventListener('load',function(){setTimeout(function(){
+ document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('visible')});
+},400)});
+</script>
+</body>
+</html>
