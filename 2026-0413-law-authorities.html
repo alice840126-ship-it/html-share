@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>⚖️ 공법 권자 비교 총정리</title>
+<style>
+:root{--bg:#0f172a;--card:#1e293b;--card2:#334155;--accent:#38bdf8;--accent2:#818cf8;--accent3:#f472b6;--ok:#34d399;--warn:#fbbf24;--err:#f87171;--text:#f1f5f9;--text2:#94a3b8;--radius:14px;--shadow:0 4px 24px rgba(0,0,0,.3)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-text-size-adjust:100%}
+.header{background:linear-gradient(135deg,#1e3a5f,#0f172a);padding:20px 16px 12px;text-align:center;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(56,189,248,.2)}
+.header h1{font-size:1.2em;margin-bottom:4px}
+.header p{font-size:.75em;color:var(--text2)}
+.tabs{display:flex;gap:4px;overflow-x:auto;padding:10px 8px;background:var(--bg);position:sticky;top:58px;z-index:99;-webkit-overflow-scrolling:touch}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex-shrink:0;padding:8px 12px;border-radius:20px;background:var(--card);color:var(--text2);font-size:.75em;font-weight:600;border:none;cursor:pointer;white-space:nowrap;transition:.2s}
+.tab.active{background:var(--accent);color:#0f172a}
+.page{display:none;padding:12px 10px 100px;animation:fadeIn .3s}
+.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.section{background:var(--card);border-radius:var(--radius);padding:16px;margin-bottom:14px;box-shadow:var(--shadow)}
+.section h2{font-size:1em;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.section h3{font-size:.88em;color:var(--accent);margin:12px 0 8px}
+.badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.68em;font-weight:700}
+.badge-hot{background:var(--err);color:#fff}
+.badge-mid{background:var(--warn);color:#0f172a}
+.badge-info{background:var(--accent);color:#0f172a}
+table{width:100%;border-collapse:collapse;margin:8px 0;font-size:.75em}
+th{background:var(--card2);padding:7px 5px;text-align:center;font-weight:600;border:1px solid rgba(148,163,184,.15)}
+td{padding:6px 5px;border:1px solid rgba(148,163,184,.15);text-align:center;line-height:1.4}
+tr:nth-child(even){background:rgba(30,41,59,.5)}
+.highlight{color:var(--accent);font-weight:700}
+.highlight-warn{color:var(--warn);font-weight:700}
+.highlight-err{color:var(--err);font-weight:700}
+.highlight-ok{color:var(--ok);font-weight:700}
+.memo{background:rgba(56,189,248,.08);border-left:3px solid var(--accent);padding:10px 12px;border-radius:0 8px 8px 0;margin:8px 0;font-size:.8em;line-height:1.6}
+.memo-warn{background:rgba(251,191,36,.08);border-left-color:var(--warn)}
+.memo-err{background:rgba(248,113,113,.08);border-left-color:var(--err)}
+.color-국장{color:var(--err);font-weight:700}
+.color-시도{color:var(--warn);font-weight:700}
+.color-시군{color:var(--ok);font-weight:700}
+.color-도지사{color:var(--accent3);font-weight:700}
+.legend{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0;font-size:.75em}
+.legend span{display:flex;align-items:center;gap:4px}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+.flow{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin:8px 0;font-size:.78em}
+.flow-step{background:var(--card2);padding:5px 8px;border-radius:8px;font-weight:600}
+.flow-arrow{color:var(--accent);font-weight:700}
+</style>
+</head>
+<body>
+<div class="header">
+<h1>⚖️ 공법 권자 비교 총정리</h1>
+<p>지정권자·수립권자·승인권자 한눈에 비교</p>
+</div>
+
+<div class="tabs">
+<button class="tab active" onclick="showPage(0)">🗺 국토계획법</button>
+<button class="tab" onclick="showPage(1)">🏗 도시개발법</button>
+<button class="tab" onclick="showPage(2)">🏘 도정법</button>
+<button class="tab" onclick="showPage(3)">🏠 주택법</button>
+<button class="tab" onclick="showPage(4)">🌾 농지법·건축법</button>
+<button class="tab" onclick="showPage(5)">⚡ 암기코드</button>
+</div>
+
+<!-- ===== Page 0: 국토계획법 ===== -->
+<div class="page active" id="page0">
+<div class="section">
+<h2>🗺 국토계획법 권자 총정리 <span class="badge badge-hot">최다출제</span></h2>
+<div class="legend">
+<span><span class="dot" style="background:var(--err)"></span> 국토교통부장관</span>
+<span><span class="dot" style="background:var(--warn)"></span> 시·도지사</span>
+<span><span class="dot" style="background:var(--ok)"></span> 시장·군수</span>
+</div>
+</div>
+
+<div class="section">
+<h3>📋 광역도시계획</h3>
+<table>
+<tr><th>구분</th><th>권자</th></tr>
+<tr><td>수립권자</td><td><span class="color-시도">시·도지사</span> (공동수립)</td></tr>
+<tr><td>승인권자</td><td><span class="color-국장">국토교통부장관</span></td></tr>
+<tr><td>수립기준</td><td><span class="color-국장">국토교통부장관</span></td></tr>
+</table>
+<div class="memo">💡 같은 도 내 협의 불성립 → <span class="color-도지사">도지사</span> 조정<br>
+둘 이상 시·도 → <span class="color-국장">국토교통부장관</span> 조정</div>
+</div>
+
+<div class="section">
+<h3>📋 도시·군기본계획</h3>
+<table>
+<tr><th>구분</th><th>권자</th></tr>
+<tr><td>수립권자</td><td>특·광: <span class="color-시도">특별시장·광역시장</span><br>시·군: <span class="color-시군">시장·군수</span></td></tr>
+<tr><td>승인권자</td><td><span class="color-시도">도지사</span> (시·군이 수립한 경우)</td></tr>
+<tr><td>수립기준</td><td><span class="color-국장">국토교통부장관</span></td></tr>
+</table>
+<div class="memo-warn memo">⚠️ 특별시·광역시가 수립 → 승인 불필요! (자체 확정)<br>
+시·군이 수립 → <span class="color-시도">도지사</span> 승인 필요</div>
+</div>
+
+<div class="section">
+<h3>📋 도시·군관리계획</h3>
+<table>
+<tr><th>구분</th><th>권자</th></tr>
+<tr><td>입안권자</td><td><span class="color-시군">시장·군수</span> (원칙)<br><span class="color-국장">국장</span>·<span class="color-시도">시·도지사</span>도 가능</td></tr>
+<tr><td>결정권자<br>(= 지정권자)</td><td><span class="color-국장">국토교통부장관</span> 또는 <span class="color-시도">시·도지사</span></td></tr>
+</table>
+<div class="flow">
+<span class="flow-step color-시군">시장·군수 입안</span>
+<span class="flow-arrow">→</span>
+<span class="flow-step">주민·지방의회 의견</span>
+<span class="flow-arrow">→</span>
+<span class="flow-step color-시도">시·도지사 결정</span>
+<span class="flow-arrow">→</span>
+<span class="flow-step">도시계획위원회 심의</span>
+<span class="flow-arrow">→</span>
+<span class="flow-step">고시</span>
+</div>
+</div>
+
+<div class="section">
+<h3>📋 용도지역·지구·구역 지정</h3>
+<table>
+<tr><th>구분</th><th>지정권자</th></tr>
+<tr><td>용도지역 지정·변경</td><td>도시·군관리계획으로 결정<br>→ <span class="color-국장">국장</span> 또는 <span class="color-시도">시·도지사</span></td></tr>
+<tr><td>개발밀도관리구역</td><td><span class="color-시군">시장·군수</span><br>(지방도시계획위원회 심의)</td></tr>
+<tr><td>기반시설부담구역</td><td><span class="color-시군">시장·군수</span><br>(지방도시계획위원회 심의)</td></tr>
+<tr><td>성장관리계획 수립</td><td><span class="color-시군">시장·군수</span></td></tr>
+</table>
+<div class="memo-err memo">🚨 개발밀도관리구역 = <span class="color-시군">시장·군수</span> 지정 (도지사 승인 불필요!)<br>
+기반시설부담구역 = <span class="color-시군">시장·군수</span> 지정 (국장 승인 불필요!)</div>
+</div>
+
+<div class="section">
+<h3>📋 도시·군계획시설사업</h3>
+<table>
+<tr><th>구분</th><th>권자</th></tr>
+<tr><td>시행자 지정</td><td><span class="color-국장">국장</span> 또는 <span class="color-시도">시·도지사</span></td></tr>
+<tr><td>실시계획 인가</td><td><span class="color-국장">국장</span> 또는 <span class="color-시도">시·도지사</span></td></tr>
+<tr><td>개발행위허가</td><td><span class="color-시군">시장·군수</span></td></tr>
+</table>
+</div>
+
+<div class="section">
+<h3>📋 지구단위계획</h3>
+<table>
+<tr><th>구분</th><th>권자</th></tr>
+<tr><td>구역 지정</td><td><span class="color-국장">국장</span> 또는 <span class="color-시도">시·도지사</span><br>(도시·군관리계획으로 결정)</td></tr>
+<tr><td>수립권자</td><td><span class="color-시군">시장·군수</span></td></tr>
+<tr><td>수립기준</td><td><span class="color-국장">국토교통부장관</span></td></tr>
+</table>
+</div>
+</div>
+
+<!-- ===== Page 1: 도시개발법 ===== -->
+<div class="page" id="page1">
+<div class="section">
+<h2>🏗 도시개발법 권자 <span class="badge badge-hot">자주출제</span></h2>
+</div>
+
+<div class="section">
+<h3>📋 도시개발구역 지정</h3>
+<table>
+<tr><th>면적</th><th>지정권자</th></tr>
+<tr><td>100만㎡ 이상</td><td><span class="color-국장">국토교통부장관</span></td></tr>
+<tr><td>100만㎡ 미만<br>(시·도 관할)</td><td><span class="color-시도">시·도지사</span></td></tr>
+<tr><td>50만㎡ 미만<br>(대도시 시장)</td><td>대도시 <span class="color-시군">시장</span></td></tr>
+</table>
+<div class="memo-err memo">🚨 국장이 직접 지정하는 경우 5가지:
+<br>① 관계 중앙행정기관의 장 요청
+<br>② 국가가 시행 필요
+<br>③ 시·도지사 협의 불성립
+<br>④ 공공기관장 제안 (<span class="highlight-err">30만㎡ 이상</span>)
+<br>⑤ 천재지변 등 긴급</div>
+</div>
+
+<div class="section">
+<h3>📋 개발계획 수립·시행자</h3>
+<table>
+<tr><th>구분</th><th>권자</th></tr>
+<tr><td>개발계획 수립</td><td><span class="color-시도">지정권자</span>가 수립</td></tr>
+<tr><td>시행자 지정</td><td><span class="color-시도">지정권자</span>가 지정</td></tr>
+<tr><td>실시계획 인가</td><td><span class="color-시도">지정권자</span></td></tr>
+<tr><td>준공검사</td><td><span class="color-시도">지정권자</span></td></tr>
+<tr><td>환지계획 인가</td><td><span class="color-시도">지정권자</span></td></tr>
+</table>
+<div class="memo">💡 도시개발법 핵심: <strong>지정권자 = 거의 모든 권한</strong><br>
+개발계획 수립, 시행자 지정, 실시계획 인가, 준공검사, 환지계획 인가 전부 지정권자!</div>
+</div>
+
+<div class="section">
+<h3>📋 도시개발채권</h3>
+<table>
+<tr><th>구분</th><th>내용</th></tr>
+<tr><td>발행권자</td><td><span class="color-시도">지방자치단체장 (시·도지사)</span></td></tr>
+<tr><td>승인</td><td><span class="highlight-err">행정안전부장관</span> 승인</td></tr>
+</table>
+</div>
+
+<div class="section">
+<h3>📋 토지상환채권</h3>
+<table>
+<tr><th>구분</th><th>내용</th></tr>
+<tr><td>발행권자</td><td>시행자</td></tr>
+<tr><td>승인</td><td><span class="color-시도">지정권자</span> 승인</td></tr>
+</table>
+</div>
+</div>
+
+<!-- ===== Page 2: 도시정비법 ===== -->
+<div class="page" id="page2">
+<div class="section">
+<h2>🏘 도시정비법(도정법) 권자 <span class="badge badge-mid">자주출제</span></h2>
+</div>
+
+<div class="section">
+<h3>📋 정비기본계획</h3>
+<table>
+<tr><th>구분</th><th>권자</th></tr>
+<tr><td>수립권자</td><td>특·광: <span class="color-시도">특별시장·광역시장</span><br>시: <span class="color-시군">시장</span> (군 제외!)</td></tr>
+<tr><td>승인권자</td><td><span class="color-시도">도지사</span>·대도시 시장 → 별도 승인 불필요(자체확정)<br>일반 시장 → <span class="color-시도">도지사</span> 승인</td></tr>
+</table>
+<div class="memo-warn memo">⚠️ 정비기본계획 수립 = 특별시장·광역시장·시장만! (<span class="highlight-err">군수는 수립 X</span>)</div>
+</div>
+
+<div class="section">
+<h3>📋 정비구역 지정</h3>
+<table>
+<tr><th>구분</th><th>권자</th></tr>
+<tr><td>지정권자</td><td>특·광: <span class="color-시도">특별시장·광역시장</span><br>시·군: <span class="color-시군">시장·군수</span> (→ <span class="color-시도">도지사</span>가 지정 가능하기도)</td></tr>
+</table>
+</div>
+
+<div class="section">
+<h3>📋 조합·사업시행</h3>
+<table>
+<tr><th>구분</th><th>인가·승인 권자</th></tr>
+<tr><td>조합설립 인가</td><td><span class="color-시군">시장·군수등</span></td></tr>
+<tr><td>사업시행계획 인가</td><td><span class="color-시군">시장·군수등</span></td></tr>
+<tr><td>관리처분계획 인가</td><td><span class="color-시군">시장·군수등</span></td></tr>
+<tr><td>준공인가</td><td><span class="color-시군">시장·군수등</span></td></tr>
+</table>
+<div class="memo">💡 도정법 사업 진행 = 거의 전부 <span class="color-시군">시장·군수등</span>이 인가!</div>
+</div>
+
+<div class="section">
+<h3>📋 기본방침·리모델링</h3>
+<table>
+<tr><th>구분</th><th>권자</th></tr>
+<tr><td>기본방침 수립</td><td><span class="color-국장">국토교통부장관</span></td></tr>
+<tr><td>리모델링기본계획 수립</td><td>특·광: <span class="color-시도">특별시장·광역시장</span><br>대도시: 대도시 <span class="color-시군">시장</span></td></tr>
+</table>
+</div>
+</div>
+
+<!-- ===== Page 3: 주택법 ===== -->
+<div class="page" id="page3">
+<div class="section">
+<h2>🏠 주택법 권자 <span class="badge badge-mid">자주출제</span></h2>
+</div>
+
+<div class="section">
+<h3>📋 사업계획 승인</h3>
+<table>
+<tr><th>구분</th><th>권자</th></tr>
+<tr><td>사업계획승인</td><td><span class="color-시도">시·도지사</span> (원칙!)</td></tr>
+<tr><td>감리자 지정</td><td>사업주체 (→ <span class="color-시도">시·도지사</span>에게 통보)</td></tr>
+<tr><td>사용검사</td><td><span class="color-시도">시·도지사</span></td></tr>
+</table>
+<div class="memo-err memo">🚨 주택법 사업계획승인 = <span class="color-시도">시·도지사</span>! (시장·군수 아님!)<br>
+분양가심사위원회 설치 = <span class="color-시도">시·도지사</span></div>
+</div>
+
+<div class="section">
+<h3>📋 투기과열지구·조정대상지역</h3>
+<table>
+<tr><th>구분</th><th>지정권자</th></tr>
+<tr><td class="highlight-err">투기과열지구</td><td><span class="color-시도">시·도지사</span> (시·도 주거정책심의위원회 심의X)<br><span class="color-국장">국토교통부장관</span>도 지정 가능</td></tr>
+<tr><td class="highlight-warn">조정대상지역</td><td><span class="color-국장">국토교통부장관</span> (주거정책심의위원회 심의)</td></tr>
+</table>
+<div class="memo-err memo">🚨 바꿔서 출제!<br>
+투기과열지구 = <span class="color-시도">시·도지사</span> (+ 국장 가능)<br>
+조정대상지역 = <span class="color-국장">국토교통부장관</span><br>
+분양가상한제 적용지역 = <span class="color-국장">국토교통부장관</span></div>
+</div>
+
+<div class="section">
+<h3>📋 주택조합</h3>
+<table>
+<tr><th>구분</th><th>권자</th></tr>
+<tr><td>조합설립 인가</td><td><span class="color-시군">시장·군수·구청장</span></td></tr>
+<tr><td>입주자모집 승인</td><td><span class="color-시군">시장·군수·구청장</span></td></tr>
+</table>
+<div class="memo">💡 국가·LH·지자체가 사업주체 → 등록 불필요, 입주자모집 승인 불필요</div>
+</div>
+
+<div class="section">
+<h3>📋 주택상환사채</h3>
+<table>
+<tr><th>구분</th><th>권자</th></tr>
+<tr><td>발행 승인</td><td><span class="color-국장">국토교통부장관</span></td></tr>
+<tr><td>보증</td><td>금융기관 또는 주택도시보증공사</td></tr>
+</table>
+</div>
+</div>
+
+<!-- ===== Page 4: 농지법·건축법 ===== -->
+<div class="page" id="page4">
+<div class="section">
+<h2>🌾 농지법 권자</h2>
+</div>
+
+<div class="section">
+<h3>📋 농지 관련</h3>
+<table>
+<tr><th>구분</th><th>권자</th></tr>
+<tr><td>농지이용계획 수립</td><td><span class="color-시군">시장·군수·구청장</span></td></tr>
+<tr><td>농지전용허가</td><td><span class="color-시군">시장·군수·구청장</span> (3만㎡ 이하)<br><span class="color-시도">시·도지사</span> (3만㎡ 초과)</td></tr>
+<tr><td>농업진흥지역 지정</td><td><span class="color-시도">시·도지사</span></td></tr>
+<tr><td>농지처분명령</td><td><span class="color-시군">시장·군수·구청장</span></td></tr>
+<tr><td>농지취득자격증명 발급</td><td><span class="color-시군">시장·군수·구청장</span></td></tr>
+</table>
+<div class="memo-warn memo">⚠️ 농업진흥지역 지정 = <span class="color-시도">시·도지사</span> (시장·군수 아님!)</div>
+</div>
+
+<div class="section">
+<h2>🏗 건축법 권자</h2>
+<h3>📋 건축허가·신고</h3>
+<table>
+<tr><th>구분</th><th>권자</th></tr>
+<tr><td>건축허가</td><td><span class="color-시군">시장·군수·구청장</span> (허가권자)</td></tr>
+<tr><td>사용승인</td><td><span class="color-시군">시장·군수·구청장</span></td></tr>
+<tr><td>이행강제금 부과</td><td><span class="color-시군">시장·군수·구청장</span> (허가권자)</td></tr>
+<tr><td>건축위원회</td><td>중앙: <span class="color-국장">국토교통부</span><br>지방: <span class="color-시도">시·도</span> / <span class="color-시군">시·군·구</span></td></tr>
+</table>
+<div class="memo">💡 건축법 = 거의 전부 <span class="color-시군">허가권자(시장·군수·구청장)</span></div>
+</div>
+</div>
+
+<!-- ===== Page 5: 암기코드 ===== -->
+<div class="page" id="page5">
+<div class="section">
+<h2>⚡ 핵심 암기코드 <span class="badge badge-hot">시험직전용</span></h2>
+</div>
+
+<div class="section">
+<h3>🔴 국토교통부장관이 하는 것</h3>
+<div class="memo-err memo" style="font-size:.85em;line-height:1.8">
+✅ 광역도시계획 <strong>승인</strong><br>
+✅ 도시·군관리계획 <strong>결정</strong> (국가계획)<br>
+✅ 모든 계획의 <strong>수립기준</strong><br>
+✅ 도시개발구역 지정 (100만㎡↑ 또는 5가지 특별사유)<br>
+✅ <strong>조정대상지역</strong> 지정<br>
+✅ <strong>분양가상한제</strong> 적용지역 지정<br>
+✅ 주택상환사채 발행 <strong>승인</strong><br>
+✅ 기본방침 수립 (도정법)
+</div>
+</div>
+
+<div class="section">
+<h3>🟡 시·도지사가 하는 것</h3>
+<div class="memo-warn memo" style="font-size:.85em;line-height:1.8">
+✅ 광역도시계획 <strong>수립</strong> (공동)<br>
+✅ 도시·군관리계획 <strong>결정</strong> (일반)<br>
+✅ 도시·군기본계획 <strong>승인</strong> (시·군이 수립한 것)<br>
+✅ 도시개발구역 지정 (100만㎡ 미만)<br>
+✅ <strong>투기과열지구</strong> 지정<br>
+✅ 주택법 <strong>사업계획승인</strong><br>
+✅ 농업진흥지역 지정<br>
+✅ 정비기본계획 승인 (시장이 수립한 것)
+</div>
+</div>
+
+<div class="section">
+<h3>🟢 시장·군수가 하는 것</h3>
+<div class="memo" style="border-left-color:var(--ok);font-size:.85em;line-height:1.8">
+✅ 도시·군기본계획 <strong>수립</strong><br>
+✅ 도시·군관리계획 <strong>입안</strong><br>
+✅ 성장관리계획 <strong>수립</strong><br>
+✅ 개발밀도관리구역 <strong>지정</strong><br>
+✅ 기반시설부담구역 <strong>지정</strong><br>
+✅ <strong>개발행위허가</strong><br>
+✅ 도정법 조합설립·사업시행·관리처분 <strong>인가</strong><br>
+✅ 주택조합설립 인가, 입주자모집 승인<br>
+✅ 건축허가·사용승인<br>
+✅ 농지전용허가·처분명령·취득자격증명
+</div>
+</div>
+
+<div class="section">
+<h3>🎯 혼동 주의! 바꿔서 출제되는 것</h3>
+<table>
+<tr><th>항목</th><th>정답</th><th>함정</th></tr>
+<tr><td>사업계획승인(주택법)</td><td class="color-시도">시·도지사</td><td class="highlight-err">시장·군수 ✗</td></tr>
+<tr><td>투기과열지구</td><td class="color-시도">시·도지사</td><td class="highlight-err">국장 ✗</td></tr>
+<tr><td>조정대상지역</td><td class="color-국장">국장</td><td class="highlight-err">시·도지사 ✗</td></tr>
+<tr><td>개발밀도관리구역</td><td class="color-시군">시장·군수</td><td class="highlight-err">도지사 승인 불필요</td></tr>
+<tr><td>농업진흥지역</td><td class="color-시도">시·도지사</td><td class="highlight-err">시장·군수 ✗</td></tr>
+<tr><td>정비기본계획 수립</td><td>시장만</td><td class="highlight-err">군수는 수립 ✗</td></tr>
+<tr><td>지구단위계획 수립기준</td><td class="color-국장">국장</td><td class="highlight-err">시·도지사 ✗</td></tr>
+</table>
+</div>
+
+<div class="section">
+<h3>💡 절차 흐름 암기</h3>
+<div class="memo" style="font-size:.85em;line-height:1.8">
+<strong>수립기준</strong>은 항상 → <span class="color-국장">국토교통부장관</span><br>
+<strong>변경</strong>하면 → 원래 절차 다시 (허가→변경→허가)<br>
+<strong>심의</strong>는 → 최종절차 (심의 후 확정)<br>
+<strong>비용</strong>은 → 원칙 시행자, 예외 수익자<br>
+<strong>둘 이상 행정구역</strong> → 협의 → 불성립 시 같은도=도지사, 둘이상시도=국장
+</div>
+</div>
+</div>
+
+<script>
+function lsGet(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function lsSet(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+
+function showPage(n){
+ document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active')});
+ document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
+ document.getElementById('page'+n).classList.add('active');
+ document.querySelectorAll('.tab')[n].classList.add('active');
+ window.scrollTo(0,0);
+}
+
+window.addEventListener('load',function(){setTimeout(function(){
+ document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('visible')});
+},400)});
+</script>
+</body>
+</html>
